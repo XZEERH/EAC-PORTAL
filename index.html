@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC PORTAL</title>
+    <style>
+        :root {
+            --red: #ff003c;
+            --purple: #8a2be2;
+            --cyan: #00f2ff;
+            --bg: #05050a;
+            --card-bg: rgba(25, 25, 35, 0.95);
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- PULSAR RADAR (BESAR - 100px) --- */
+        .pulsar-wrapper {
+            display: flex; justify-content: center;
+            margin-bottom: 10px;
+        }
+        .pulsar-container {
+            position: relative; width: 100px; height: 100px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .pulsar-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 15px var(--cyan); z-index: 2; }
+        .pulsar-ring { position: absolute; border: 2px solid var(--cyan); border-radius: 50%; width: 10px; height: 10px; opacity: 0; animation: pulsarScan 2.5s infinite; }
+        .pulsar-ring:nth-child(2) { animation-delay: 0.8s; }
+        .pulsar-ring:nth-child(3) { animation-delay: 1.6s; }
+        @keyframes pulsarScan { 0% { width: 10px; height: 10px; opacity: 1; } 100% { width: 100px; height: 100px; opacity: 0; } }
+
+        /* --- LOADING SCREEN (ATOM) --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+        }
+        .atom-loader {
+            position: relative; width: 150px; height: 150px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .nucleus { width: 20px; height: 20px; background: white; border-radius: 50%; box-shadow: 0 0 30px var(--cyan); }
+        .orbit { position: absolute; border: 2px solid rgba(0, 242, 255, 0.4); border-radius: 50%; width: 150px; height: 55px; animation: atomSpin 3s linear infinite; }
+        @keyframes atomSpin { from { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(0deg); } to { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(360deg); } }
+
+        /* --- LANDING PAGE --- */
+        #landing {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;
+        }
+        .eac-logo {
+            font-size: 6.5rem; font-weight: 900; color: #ffffff; 
+            letter-spacing: -5px; margin: 0; line-height: 0.9;
+        }
+
+        .welcome-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #ffae00, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- PORTAL DASHBOARD --- */
+        #portal { display: none; padding: 20px; max-width: 480px; margin: auto; padding-bottom: 50px; }
+        .nasa-card { background: var(--card-bg); border: 1px solid #333; border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
+        #nasa-image { width: 100%; height: 200px; object-fit: cover; }
+        
+        .nav-card { background: var(--card-bg); padding: 25px; text-decoration: none; border-radius: 15px; border: 1px solid #333; transition: 0.3s; position: relative; overflow: hidden; margin-bottom: 15px; display: block;}
+        .nav-card::before { content: ''; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--purple); }
+        
+        /* TOMBOL BACK (TEXT GANTI JADI BACK) */
+        #back-home {
+            position: fixed; bottom: 120px; right: 25px; width: 70px; height: 70px; background: var(--cyan);
+            border-radius: 50%; display: none; justify-content: center; align-items: center;
+            box-shadow: 0 0 25px var(--cyan); cursor: pointer; z-index: 10000; color: black; font-weight: bold; font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="javascript:void(0)" id="back-home" onclick="closeIframe()">BACK</a>
+
+    <div id="web-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; background:black;">
+        <iframe id="target-frame" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+
+    <div id="loader">
+        <div class="atom-loader">
+            <div class="nucleus"></div>
+            <div class="orbit" style="--r:0deg"></div>
+            <div class="orbit" style="--r:60deg"></div>
+            <div class="orbit" style="--r:-60deg"></div>
+        </div>
+        <p style="margin-top: 30px; letter-spacing: 5px; color: var(--cyan);">CONNECTING TO SISTEM...</p>
+    </div>
+
+    <div id="landing">
+        <div class="pulsar-wrapper">
+            <div class="pulsar-container">
+                <div class="pulsar-dot"></div>
+                <div class="pulsar-ring"></div>
+                <div class="pulsar-ring"></div>
+                <div class="pulsar-ring"></div>
+            </div>
+        </div>
+        <h1 class="eac-logo">EAC</h1>
+        <div class="welcome-text">Selamat datang calon angkasa!</div>
+        
+        <button onclick="enterSystem()" style="margin-top:45px; border:1px solid var(--cyan); padding:15px 40px; background:transparent; color:var(--cyan); font-weight:bold; cursor:pointer; letter-spacing: 2px;">MASUK KE SISTEM ></button>
+    </div>
+
+    <div id="portal">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="letter-spacing: 8px; margin:0;">PORTAL <span style="color:var(--purple)">EAC</span></h1>
+            <div id="clock" style="font-family:monospace; color:var(--purple); font-size:1.1rem; margin-top:5px;">00:00:00</div>
+        </div>
+
+        <div class="nasa-card">
+            <img id="nasa-image" src="" alt="NASA APOD">
+            <div style="padding:10px; font-size:0.7rem;">
+                <span style="color:var(--red); font-weight:bold;">NASA APOD TODAY</span>
+                <div id="nasa-title" style="margin-top:3px; color:#eee;">Syncing satellites...</div>
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://registrasi-eac.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Registrasi EAC 1</span>
+                <span style="color:#888; font-size:0.8rem;">Sektor pendaftaran utama angkatan pertama.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://eac-registration.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Registrasi EAC 2</span>
+                <span style="color:#888; font-size:0.8rem;">Gerbang pendaftaran resmi kolaborasi angkatan kedua.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m', false)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Saluran WhatsApp</span>
+                <span style="color:#888; font-size:0.8rem;">Transmisi info resmi dan update terkini.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://ruang-ilmu-kappa.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Website Resmi</span>
+                <span style="color:#888; font-size:0.8rem;">Ensiklopedia digital informasi alam semesta.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://website-eac-two.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Website Resmi 2</span>
+                <span style="color:#888; font-size:0.8rem;">Ensiklopedia digital informasi alam semesta terbaru.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://eac-ai.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">AI Astronomy</span>
+                <span style="color:#888; font-size:0.8rem;">Asisten cerdas pencari jawaban ilmiah.</span>
+            </a>
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://kalkulator-ilmiah.vercel.app/', true)">
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Kalkulator Ilmiah</span>
+                <span style="color:#888; font-size:0.8rem;">Modul hitung presisi untuk data astronomi.</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0') + " // EAC-TIME";
+        }
+        setInterval(updateClock, 1000);
+
+        async function fetchNasaData() {
+            const apiKey = 'JMcJ1UGIgdFUs4qDWRaPEONheF5zazhnIdMhs4eH';
+            try {
+                const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
+                const data = await res.json();
+                document.getElementById('nasa-image').src = data.url;
+                document.getElementById('nasa-title').innerText = data.title;
+            } catch (e) { document.getElementById('nasa-title').innerText = "Data Offline."; }
+        }
+
+        function enterSystem() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('loader').style.display = 'flex';
+            fetchNasaData();
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('portal').style.display = 'block';
+            }, 2500); // Intro masuk tetap agak lama biar dramatis
+        }
+
+        function openLink(url, useIframe) {
+            if(!useIframe) { window.open(url, '_blank'); return; }
+            document.getElementById('portal').style.display = 'none';
+            document.getElementById('loader').style.display = 'flex';
+            
+            // DELAY 2.5 DETIK (2500ms) - SESUAI REQUEST
+            setTimeout(() => { 
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('web-viewer').style.display = 'block';
+                document.getElementById('target-frame').src = url;
+                document.getElementById('back-home').style.display = 'flex';
+            }, 2500); 
+        }
+
+        function closeIframe() {
+            document.getElementById('web-viewer').style.display = 'none';
+            document.getElementById('target-frame').src = "";
+            document.getElementById('back-home').style.display = 'none';
+            document.getElementById('portal').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
