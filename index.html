@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* --- PULSAR RADAR (100px) --- */
+        /* --- PULSAR RADAR --- */
         .pulsar-wrapper {
             display: flex; justify-content: center;
             margin-bottom: 10px;
@@ -36,7 +36,7 @@
         .pulsar-ring:nth-child(3) { animation-delay: 1.6s; }
         @keyframes pulsarScan { 0% { width: 10px; height: 10px; opacity: 1; } 100% { width: 100px; height: 100px; opacity: 0; } }
 
-        /* --- LOADING SCREEN (ATOM DENGAN NUCLEUS HIDUP) --- */
+        /* --- LOADING SCREEN (ATOM CLEAN) --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg); display: none; flex-direction: column;
@@ -46,22 +46,18 @@
             position: relative; width: 150px; height: 150px;
             display: flex; justify-content: center; align-items: center;
         }
-        
-        /* Nucleus yang mengecil-membesar */
-        .nucleus { 
-            width: 20px; height: 20px; 
-            background: white; border-radius: 50%; 
-            box-shadow: 0 0 30px var(--cyan); 
-            animation: nucleusPulse 1.5s ease-in-out infinite; 
+        .orbit { 
+            position: absolute; 
+            border: 2px solid rgba(0, 242, 255, 0.6); 
+            border-radius: 50%; 
+            width: 150px; 
+            height: 55px; 
+            animation: atomSpin 3s linear infinite; 
         }
-        
-        @keyframes nucleusPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.6); opacity: 0.7; }
+        @keyframes atomSpin { 
+            from { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(0deg); } 
+            to { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(360deg); } 
         }
-
-        .orbit { position: absolute; border: 2px solid rgba(0, 242, 255, 0.4); border-radius: 50%; width: 150px; height: 55px; animation: atomSpin 3s linear infinite; }
-        @keyframes atomSpin { from { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(0deg); } to { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(360deg); } }
 
         /* --- LANDING PAGE --- */
         #landing {
@@ -106,7 +102,6 @@
 
     <div id="loader">
         <div class="atom-loader">
-            <div class="nucleus"></div>
             <div class="orbit" style="--r:0deg"></div>
             <div class="orbit" style="--r:60deg"></div>
             <div class="orbit" style="--r:-60deg"></div>
@@ -125,7 +120,6 @@
         </div>
         <h1 class="eac-logo">EAC</h1>
         <div class="welcome-text">Selamat datang calon angkasa!</div>
-        
         <button onclick="enterSystem()" style="margin-top:45px; border:1px solid var(--cyan); padding:15px 40px; background:transparent; color:var(--cyan); font-weight:bold; cursor:pointer; letter-spacing: 2px;">MASUK KE SISTEM ></button>
     </div>
 
@@ -144,7 +138,7 @@
         </div>
 
         <div class="card-grid">
-            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://xzeerh.github.io/EAC-WEBSITE/', false)">
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://xzeerh.github.io/EAC-WEBSITE/', true)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Registrasi EAC 1</span>
                 <span style="color:#888; font-size:0.8rem;">Sektor pendaftaran utama angkatan pertama.</span>
             </a>
@@ -162,7 +156,7 @@
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://website-eac-two.vercel.app/', true)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Website Resmi 2</span>
-                <span style="color:#888; font-size:0.8rem;">Ensiklopedia sekunder digital informasi alam semesta.</span>
+                <span style="color:#888; font-size:0.8rem;">Ensiklopedia sekunder digital informasi alam semesta terbaru.</span>
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://eac-ai.vercel.app/', true)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">AI Astronomy</span>
@@ -207,7 +201,7 @@
             document.getElementById('loader').style.display = 'flex';
             
             if(useIframe) {
-                // Pre-loading agar website langsung tampil tanpa delay hitam
+                // Pre-loading pendaftaran di background agar instan
                 document.getElementById('target-frame').src = url;
                 setTimeout(() => { 
                     document.getElementById('loader').style.display = 'none';
@@ -215,7 +209,6 @@
                     document.getElementById('back-home').style.display = 'flex';
                 }, 3000); 
             } else {
-                // Untuk link WhatsApp & Registrasi 1 yang buka tab baru
                 setTimeout(() => { 
                     window.open(url, '_blank');
                     document.getElementById('loader').style.display = 'none';
