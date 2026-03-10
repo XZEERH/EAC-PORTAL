@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* --- PULSAR RADAR (BESAR - 100px) --- */
+        /* --- PULSAR RADAR (100px) --- */
         .pulsar-wrapper {
             display: flex; justify-content: center;
             margin-bottom: 10px;
@@ -36,7 +36,7 @@
         .pulsar-ring:nth-child(3) { animation-delay: 1.6s; }
         @keyframes pulsarScan { 0% { width: 10px; height: 10px; opacity: 1; } 100% { width: 100px; height: 100px; opacity: 0; } }
 
-        /* --- LOADING SCREEN (ATOM - DURASI 3 DETIK) --- */
+        /* --- LOADING SCREEN (ATOM DENGAN NUCLEUS HIDUP) --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg); display: none; flex-direction: column;
@@ -46,7 +46,20 @@
             position: relative; width: 150px; height: 150px;
             display: flex; justify-content: center; align-items: center;
         }
-        .nucleus { width: 20px; height: 20px; background: white; border-radius: 50%; box-shadow: 0 0 30px var(--cyan); }
+        
+        /* Nucleus yang mengecil-membesar */
+        .nucleus { 
+            width: 20px; height: 20px; 
+            background: white; border-radius: 50%; 
+            box-shadow: 0 0 30px var(--cyan); 
+            animation: nucleusPulse 1.5s ease-in-out infinite; 
+        }
+        
+        @keyframes nucleusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.6); opacity: 0.7; }
+        }
+
         .orbit { position: absolute; border: 2px solid rgba(0, 242, 255, 0.4); border-radius: 50%; width: 150px; height: 55px; animation: atomSpin 3s linear infinite; }
         @keyframes atomSpin { from { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(0deg); } to { transform: rotate(var(--r, 0deg)) rotateX(70deg) rotateZ(360deg); } }
 
@@ -58,7 +71,6 @@
             font-size: 6.5rem; font-weight: 900; color: #ffffff; 
             letter-spacing: -5px; margin: 0; line-height: 0.9;
         }
-
         .welcome-text {
             margin-top: 20px;
             font-size: 1.2rem;
@@ -99,7 +111,7 @@
             <div class="orbit" style="--r:60deg"></div>
             <div class="orbit" style="--r:-60deg"></div>
         </div>
-        <p style="margin-top: 30px; letter-spacing: 5px; color: var(--cyan);">MASUK KE SISTEM...</p>
+        <p style="margin-top: 30px; letter-spacing: 5px; color: var(--cyan);">TRANSMITTING DATA...</p>
     </div>
 
     <div id="landing">
@@ -140,12 +152,12 @@
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Registrasi EAC 2</span>
                 <span style="color:#888; font-size:0.8rem;">Sektor pendaftaran resmi kolaborasi angkatan kedua.</span>
             </a>
-            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m', false)">
+            <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://chat.whatsapp.com/C0CyxNd1FYsEbCqtmHLncr?mode=gi_t', false)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Saluran WhatsApp</span>
                 <span style="color:#888; font-size:0.8rem;">Transmisi info resmi dan update terkini.</span>
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://ruang-ilmu-kappa.vercel.app/', true)">
-                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Website resmi</span>
+                <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Ruang Ilmu Kappa</span>
                 <span style="color:#888; font-size:0.8rem;">Ensiklopedia digital informasi alam semesta.</span>
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://website-eac-two.vercel.app/', true)">
@@ -154,7 +166,7 @@
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://eac-ai.vercel.app/', true)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">AI Astronomy</span>
-                <span style="color:#888; font-size:0.8rem;">Asisten cerdas pencari jawaban segala nya.</span>
+                <span style="color:#888; font-size:0.8rem;">Asisten cerdas pencari jawaban ilmiah.</span>
             </a>
             <a href="javascript:void(0)" class="nav-card" onclick="openLink('https://kalkulator-ilmiah.vercel.app/', true)">
                 <span style="color:white; font-weight:bold; font-size:1.1rem; display:block; margin-bottom:5px;">Kalkulator Ilmiah</span>
@@ -195,7 +207,7 @@
             document.getElementById('loader').style.display = 'flex';
             
             if(useIframe) {
-                // Pre-loading untuk menghindari layar hitam
+                // Pre-loading agar website langsung tampil tanpa delay hitam
                 document.getElementById('target-frame').src = url;
                 setTimeout(() => { 
                     document.getElementById('loader').style.display = 'none';
@@ -203,7 +215,7 @@
                     document.getElementById('back-home').style.display = 'flex';
                 }, 3000); 
             } else {
-                // Untuk Registrasi 1 & WhatsApp langsung tab baru tanpa alert
+                // Untuk link WhatsApp & Registrasi 1 yang buka tab baru
                 setTimeout(() => { 
                     window.open(url, '_blank');
                     document.getElementById('loader').style.display = 'none';
