@@ -164,6 +164,12 @@ Berisi informasi khusus dari EAC yang bisa dibaca.</li>
 
                       <li><b>Kalkulator khusus:</b>
 Kalkulator untuk membantu menghitung ilmiah.</li>
+
+                    </ul>
+                    <h2>03. NOTE!</h2>
+                    <ul class="gate-list">
+                        <li><b>Peringatan!:</b>
+Portal dalam tahap pengembangan, jadi bisa saja portal nya rusak dalam keadaan apapun tersebut!</li>
                     </ul>
                 </div>
                 <div onclick="playClick(); toggleCheck();" style="display:flex; align-items:center; gap:12px; cursor:pointer; margin: 25px 0 15px 0; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
@@ -275,7 +281,7 @@ Kalkulator untuk membantu menghitung ilmiah.</li>
             const now = new Date();
             document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
                 now.getMinutes().toString().padStart(2, '0') + ":" + 
-                now.getSeconds().toString().padStart(2, '0') + " // IEA-TIME";
+                now.getSeconds().toString().padStart(2, '0') + " // EAC-TIME";
         }
 
         function initScrollAnimation() {
