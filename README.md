@@ -1,69 +1,52 @@
-# 🌌 EAC PORTAL — Command Center
+# 🌌 PORTAL EAC (EAC V1.0)
 
-![Version](https://img.shields.io/badge/Version-3.0.0-cyan)
-![Status](https://img.shields.io/badge/System-Online-green)
-![Security](https://img.shields.io/badge/Encryption-Active-purple)
-
-**EAC Portal** adalah gerbang digital utama bagi **Earth Astronomy Community**. Dirancang dengan estetika *futuristic command center*, portal ini menghubungkan calon angkasa dengan berbagai modul riset, pendaftaran, dan asisten cerdas astronomi secara terpusat.
+**Portal EAC** adalah sistem gerbang digital terpusat untuk komunitas *Experimental Astronomy*. Dirancang dengan antarmuka futuristik, sistem ini berfungsi sebagai hub untuk mengakses berbagai database astronomi, alat riset ilmiah, dan integrasi data real-time dari luar angkasa.
 
 ---
 
-## 🛰️ Fitur Utama
+## 🚀 Fitur Utama
 
-* **Pulsar Radar Interface:** Navigasi visual yang intuitif dengan animasi radar pulsar pada gerbang utama.
-* **NASA APOD Integration:** Sinkronisasi otomatis dengan API NASA untuk menyajikan *Astronomy Picture of the Day*.
-* **Multi-Module Navigation:** Akses cepat ke 7 sektor utama:
-    * Registrasi Sektor 1 & 2.
-    * Ruang Ilmu Kappa (Ensiklopedia).
-    * Website Resmi EAC.
-    * AI Astronomy Assistant.
-    * Kalkulator Ilmiah Presisi.
-    * Saluran Transmisi WhatsApp.
-* **Low-Latency Loading:** Sistem transisi halus sebesar **1.5 detik** dengan animasi atomik ikonik.
+* **Custom EAC Loading Screen:** Animasi orbit oval dinamis (Wheel Spin) yang melambangkan presisi astronomi.
+* **NASA APOD Integration:** Menampilkan data gambar harian asli dari satelit NASA (Astronomy Picture of the Day) melalui API resmi.
+* **Futuristik Dashboard:** Desain kartu portal berukuran besar dengan efek *pop-up* (scaling) saat disentuh.
+* **Scroll & Fade-In Animation:** Transisi elemen yang halus (fade-in/blur) saat pengguna melakukan scrolling.
+* **Interactive Audio:** Efek suara klik (UI Click SFX) untuk setiap interaksi tombol dan portal.
+* **Real-Time EAC Clock:** Jam digital presisi yang terintegrasi langsung di sistem pusat.
 
 ---
 
-## 🛠️ Stack Teknologi
+## 🛠️ Teknologi yang Digunakan
 
-Sistem ini dibangun menggunakan arsitektur *lightweight* untuk performa maksimal:
-* **Frontend:** HTML5, CSS3 (Modern Flexbox & Animations).
-* **Logic:** Vanilla JavaScript (ES6+).
-* **API:** NASA Planetary API.
-* **Theme:** Deep Space Dark Mode dengan aksen Cyan & Purple.
-
----
-
-## 🚀 Instalasi & Deployment
-
-1.  **Clone Repository**
-    ```bash
-    git clone [https://github.com/username/eac-portal.git](https://github.com/username/eac-portal.git)
-    ```
-2.  **Konfigurasi API Key**
-    Buka file `index.html` dan pastikan API Key NASA Anda terpasang pada fungsi `fetchNasaData`:
-    ```javascript
-    const apiKey = 'YOUR_NASA_API_KEY';
-    ```
-3.  **Run Locally**
-    Cukup buka file `index.html` di browser pilihan Anda atau gunakan ekstensi *Live Server*.
+* **HTML5** - Struktur semantik sistem.
+* **CSS3** - Animasi orbit, Glassmorphism UI, dan efek transisi scroll.
+* **JavaScript (ES6)** - Logika sinkronisasi data, API Fetching, dan Intersection Observer.
+* **NASA API** - Sumber data visual harian dari luar angkasa.
 
 ---
 
-## 📡 Struktur Navigasi
+## 📁 Struktur Navigasi Portal
 
-| Sektor | Deskripsi | Tipe Akses |
-| :--- | :--- | :--- |
-| **Registrasi** | Jalur pendaftaran angkatan baru | Iframe Internal |
-| **AI Assistant** | Konsultasi astronomi cerdas | Iframe Internal |
-| **Kalkulator** | Perhitungan data riset presisi | Iframe Internal |
-| **WhatsApp** | Jalur komunikasi koordinasi | Tab Baru |
+1.  **Saluran WhatsApp:** Pusat informasi berita astronomi terkini.
+2.  **Registrasi EAC 1 & 2:** Gerbang pendaftaran anggota dan kolaborasi proyek.
+3.  **Website Resmi 1 & 2:** Portal utama pengelolaan pusat Ruang Ilmu Kappa.
+4.  **Asisten AI:** Kecerdasan buatan khusus untuk tanya jawab seputar astronomi.
+5.  **Kalkulator Ilmiah:** Alat hitung fisik untuk keperluan riset data antariksa.
+
+---
+
+## 🔧 Cara Penggunaan
+
+1.  Buka file `index.html` pada browser modern (Chrome/Safari/Edge).
+2.  Pada halaman **Gerbang Masuk**, baca protokol navigasi.
+3.  Centang persetujuan akses dan tekan **Masuk Ke Sistem**.
+4.  Tunggu proses **Sinkronisasi Data** (Loading 4 detik) selesai.
+5.  Selamat menjelajah portal EAC!
 
 ---
 
-## 👨‍🚀 Credits
+## 📝 Catatan Pengembang
 
-Dibuat dengan penuh dedikasi untuk komunitas astronomi. 
-**"Selamat datang calon angkasa!"**
+Sistem ini dikembangkan dengan fokus pada *User Experience* yang *seamless*. Transisi antara loading screen ke dashboard dirancang tanpa jeda (no-delay) untuk menjaga imersivitas pengguna.
 
----
-© 2026 EAC SYSTEM // ENKRIPSI: AKTIF
+> **Status Sistem:** Operational / Stable v1.0  
+> **Lisensi:** Education Astronomy Creator (EAC)
