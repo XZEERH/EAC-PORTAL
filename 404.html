@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - LOST IN SPACE</title>
+    <title>404 - LOST IN SECTOR EAC</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400&display=swap');
 
         :root {
-            --bg-dark: #0b0b0f;
+            --bg-dark: #000;
             --accent-purple: #9b51e0;
             --accent-cyan: #38bdf8;
-            --text-muted: #a0a0a5;
+            --text-muted: #888;
         }
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
 
         body {
             background-color: var(--bg-dark);
@@ -25,128 +23,200 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            padding: 20px;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 25px;
         }
 
-        /* --- BACKGROUND EFFECTS --- */
-        .stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1b1b2f 0%, #050505 100%);
+        /* --- BINTANG BERGERAK (HYPERDRIVE) --- */
+        #stars {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: -2;
+            background: black;
         }
 
-        /* --- 404 TEXT --- */
+        /* --- BLACK HOLE DINAMIS DENGAN OBJEK --- */
+        .black-hole-v2 {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            /* Warna radial dinamis, ungu ke biru */
+            background: radial-gradient(circle, #000 35%, var(--accent-purple) 60%, var(--accent-cyan) 85%, transparent 100%);
+            border-radius: 50%; z-index: -1;
+            filter: blur(40px); opacity: 0.3;
+            animation: pulse-hole-v2 6s infinite alternate;
+        }
+
+        @keyframes pulse-hole-v2 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.6; }
+        }
+
+        /* --- GLITCH ANIMATION 404 (SISTEM LAMA DIHAPUS) --- */
         .error-code {
             font-family: 'Orbitron', sans-serif;
-            font-size: 120px;
+            font-size: clamp(80px, 18vw, 110px);
             font-weight: 700;
-            background: linear-gradient(to bottom, var(--accent-purple), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(155, 81, 224, 0.5));
-            line-height: 1;
+            color: white;
+            position: relative;
+            letter-spacing: 5px;
+            /* Efek Neon Glow Ganda */
+            text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan);
             margin-bottom: 10px;
+            animation: glitch-v2 1.5s infinite;
         }
 
-        .error-message {
+        /* Animasi Glitch Baru - Visual Rusak dan Warp */
+        @keyframes glitch-v2 {
+            0% { text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan); }
+            5% { text-shadow: 3px 0 var(--accent-cyan), -3px 0 var(--accent-purple); transform: skew(-3deg); }
+            10% { text-shadow: -2px 0 var(--accent-cyan), 2px 0 var(--accent-purple); transform: skew(3deg); opacity: 0.7; }
+            15% { text-shadow: 0 0 10px var(--accent-purple); transform: skew(0deg); opacity: 1; }
+            80% { text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan); }
+            85% { text-shadow: 4px 0 var(--accent-cyan), -4px 0 var(--accent-purple); opacity: 0.6; }
+            90% { text-shadow: -3px 0 var(--accent-cyan), 3px 0 var(--accent-purple); transform: scaleY(0.9); }
+            95% { text-shadow: 0 0 10px var(--accent-purple); opacity: 1; transform: scaleY(1); }
+            100% { text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan); }
+        }
+
+        .msg-main {
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            letter-spacing: 3px;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            margin-bottom: 30px;
+            font-size: 14px; color: var(--accent-cyan);
+            letter-spacing: 2px; margin-bottom: 25px;
         }
 
         .description {
             color: var(--text-muted);
-            max-width: 300px;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 40px;
+            font-size: 13px; line-height: 1.6;
+            max-width: 330px; margin-bottom: 45px;
         }
 
-        /* --- GLOWING BUTTON --- */
-        .btn-back {
-            background: transparent;
-            border: 1px solid var(--accent-purple);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
+        /* --- TOMBOL KEMBALI PORTAL (SISTEM LAMA TERJAGA) --- */
+        .btn-portal {
+            background: linear-gradient(45deg, var(--accent-purple), #6c5ce7);
+            color: white; border: none;
+            padding: 18px 45px; border-radius: 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(155, 81, 224, 0.2);
+            font-size: 12px; text-decoration: none;
+            letter-spacing: 2px; font-weight: bold;
+            box-shadow: 0 10px 25px rgba(155, 81, 224, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 50px;
         }
 
-        .btn-back:hover {
-            background: var(--accent-purple);
-            box-shadow: 0 0 25px rgba(155, 81, 224, 0.6);
-            transform: scale(1.05);
+        .btn-portal:active { transform: scale(0.95); opacity: 0.9; }
+
+        /* --- TIMER AREA (SISTEM LAMA TERJAGA) --- */
+        .timer-container {
+            border-top: 1px solid #222;
+            padding-top: 25px; width: 220px;
         }
 
-        /* --- ANIMATION --- */
-        .float {
-            animation: floating 3s infinite ease-in-out;
+        .timer-text {
+            font-size: 10px; color: #555;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .status-footer {
-            position: absolute;
-            bottom: 30px;
+        #countdown {
             font-family: 'Orbitron', sans-serif;
-            font-size: 9px;
-            color: #333;
-            letter-spacing: 2px;
+            font-size: 22px; color: #f59e0b;
+            margin-top: 5px; display: block;
+        }
+
+        .status-tag {
+            position: absolute; bottom: 20px;
+            font-size: 8px; color: #333; font-family: 'Orbitron';
         }
     </style>
 </head>
 <body>
 
-    <div class="stars"></div>
+    <canvas id="stars"></canvas>
+    
+    <div class="black-hole-v2"></div>
 
-    <div class="float">
-        <h1 class="error-code">404</h1>
-    </div>
-
-    <p class="error-message">Sinyal Terputus</p>
-
+    <h1 class="error-code">404</h1>
+    <p class="msg-main">LOST IN UNKNOWN SECTOR</p>
+    
     <p class="description">
-        Koordinat yang Anda tuju tidak ditemukan di database atau telah dihapus di galaksi kami. Sepertinya Anda terjebak di black hole.
+        Database tidak ditemukan atau telah dihapus di galaksi kami, sepertinya Anda tersesat di <b>Black Hole</b>.
     </p>
 
-    <a href="index.html" class="btn-back">KEMBALI KE PORTAL</a>
+    <a href="index.html" class="btn-portal">KEMBALI KE PORTAL</a>
 
-    <div class="status-footer">SYSTEM ERROR // COORDINATE NOT FOUND</div>
+    <div class="timer-container">
+        <span class="timer-text">Auto-Warp Drive In:</span>
+        <span id="countdown">08</span>
+    </div>
+
+    <div class="status-tag">EAC_EMERGENCY_PROTOCOL_V3</div>
 
     <script>
-        // Efek tambahan: Bikin bintang kecil bergerak pelan
-        function createStar() {
-            const star = document.createElement('div');
-            star.style.position = 'absolute';
-            star.style.width = '2px';
-            star.style.height = '2px';
-            star.style.background = 'white';
-            star.style.borderRadius = '50%';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.opacity = Math.random();
-            document.querySelector('.stars').appendChild(star);
-        }
+        // --- LOGIC BINTANG BERGERAK (HYPERDRIVE) ---
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
 
-        for (let i = 0; i < 50; i++) {
-            createStar();
+        function setCanvasSize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            stars = [];
+            // Buat bintang baru sesuai ukuran layar
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    z: Math.random() * width, // Kedalaman bintang
+                    o: Math.random() // Opacity
+                });
+            }
         }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        function drawStars() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'white';
+
+            stars.forEach(star => {
+                // Skala posisi berdasarkan kedalaman (Z)
+                let px = (star.x - width / 2) * (width / star.z) + width / 2;
+                let py = (star.y - height / 2) * (width / star.z) + height / 2;
+                let size = (1 - star.z / width) * 2; // Ukuran bintang membesar pas mendekat
+
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.globalAlpha = star.o * (1 - star.z / width);
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                // Gerakkan bintang mendekat (Z berkurang)
+                star.z -= 4; // Kecepatan gerak
+
+                // Kalau bintang sudah lewat, reset ke belakang
+                if (star.z <= 0) {
+                    star.z = width;
+                    star.x = Math.random() * width;
+                    star.y = Math.random() * height;
+                }
+            });
+
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+
+        // --- SISTEM HITUNG MUNDUR (SISTEM LAMA TERJAGA) ---
+        let time = 8;
+        const display = document.getElementById('countdown');
+
+        const startTimer = setInterval(() => {
+            time--;
+            display.innerText = time < 10 ? '0' + time : time;
+
+            if (time <= 0) {
+                clearInterval(startTimer);
+                window.location.href = "index.html"; 
+            }
+        }, 1000);
     </script>
 </body>
 </html>
