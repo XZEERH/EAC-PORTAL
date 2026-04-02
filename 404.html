@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - LOST IN SPACE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400&display=swap');
+
+        :root {
+            --bg-dark: #0b0b0f;
+            --accent-purple: #9b51e0;
+            --accent-cyan: #38bdf8;
+            --text-muted: #a0a0a5;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* --- BACKGROUND EFFECTS --- */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1b1b2f 0%, #050505 100%);
+        }
+
+        /* --- 404 TEXT --- */
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 120px;
+            font-weight: 700;
+            background: linear-gradient(to bottom, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(155, 81, 224, 0.5));
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            letter-spacing: 3px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            max-width: 300px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* --- GLOWING BUTTON --- */
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--accent-purple);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(155, 81, 224, 0.2);
+        }
+
+        .btn-back:hover {
+            background: var(--accent-purple);
+            box-shadow: 0 0 25px rgba(155, 81, 224, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMATION --- */
+        .float {
+            animation: floating 3s infinite ease-in-out;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .status-footer {
+            position: absolute;
+            bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <div class="float">
+        <h1 class="error-code">404</h1>
+    </div>
+
+    <p class="error-message">Sinyal Terputus</p>
+
+    <p class="description">
+        Koordinat yang Anda tuju tidak ditemukan di database atau telah dihapus di galaksi kami. Sepertinya Anda terjebak di black hole.
+    </p>
+
+    <a href="index.html" class="btn-back">KEMBALI KE PORTAL</a>
+
+    <div class="status-footer">SYSTEM ERROR // COORDINATE NOT FOUND</div>
+
+    <script>
+        // Efek tambahan: Bikin bintang kecil bergerak pelan
+        function createStar() {
+            const star = document.createElement('div');
+            star.style.position = 'absolute';
+            star.style.width = '2px';
+            star.style.height = '2px';
+            star.style.background = 'white';
+            star.style.borderRadius = '50%';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.opacity = Math.random();
+            document.querySelector('.stars').appendChild(star);
+        }
+
+        for (let i = 0; i < 50; i++) {
+            createStar();
+        }
+    </script>
+</body>
+</html>
