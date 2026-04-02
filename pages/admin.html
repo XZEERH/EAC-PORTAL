@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC - ADMIN CENTER</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #020205; padding: 20px; color: white; font-family: 'Rajdhani'; }
+        .admin-form { max-width: 500px; margin: 40px auto; background: #0d0d12; padding: 25px; border: 1px solid #00f2ff; border-radius: 8px; box-shadow: 0 0 20px rgba(0,242,255,0.1); }
+        label { font-size: 10px; color: #555; font-family: 'Orbitron'; display: block; margin-top: 15px; letter-spacing: 1px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #050508; border: 1px solid #222; color: white; border-radius: 4px; font-family: 'Rajdhani'; outline: none; }
+        .file-box { border: 1px dashed #444; padding: 20px; text-align: center; cursor: pointer; margin-top: 10px; }
+        button { width: 100%; padding: 15px; border: none; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; margin-top: 25px; background: #39ff14; color: #000; }
+        #status { font-size: 10px; text-align: center; margin-top: 15px; color: #00f2ff; font-family: 'Orbitron'; }
+    </style>
+</head>
+<body>
+
+    <div id="login" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#020205; z-index:999; display:flex; align-items:center; justify-content:center;">
+        <div class="admin-form" style="text-align:center;">
+            <h2 style="color:#00f2ff; font-family:'Orbitron'; font-size:18px;">EAC ACCESS CONTROL</h2>
+            <input type="password" id="pass" placeholder="Enter Admin Key...">
+            <button onclick="auth()" style="background:#00f2ff;">AUTHENTICATE</button>
+        </div>
+    </div>
+
+    <div class="admin-form">
+        <h2 style="color:#00f2ff; font-family:'Orbitron'; text-align:center; font-size:16px;">COSMIC DATA UPLOADER</h2>
+
+        <label>JUDUL OBJEK</label>
+        <input type="text" id="title" placeholder="Nama Objek...">
+
+        <label>KATEGORI</label>
+        <select id="category">
+            <option value="Planet">Planet</option>
+            <option value="Galaksi">Galaksi</option>
+            <option value="Bintang">Bintang</option>
+            <option value="Objek">Objek</option>
+            <option value="Misteri">Misteri</option>
+            <option value="Teori">Teori</option>
+        </select>
+
+        <label>METODE GAMBAR</label>
+        <select id="uploadMethod" onchange="toggleMethod()">
+            <option value="file">GALERI (ImgBB)</option>
+            <option value="url">LINK LANGSUNG</option>
+        </select>
+
+        <div id="fileMethod">
+            <label>PILIH DARI GALERI</label>
+            <div class="file-box" onclick="document.getElementById('fileInput').click()">
+                <span id="fileName">Klik untuk pilih gambar</span>
+                <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="updateName()">
+            </div>
+        </div>
+
+        <div id="urlMethod" style="display:none;">
+            <label>URL GAMBAR</label>
+            <input type="text" id="imageUrlLink" placeholder="https://...">
+        </div>
+
+        <label>PENJELASAN</label>
+        <textarea id="desc" rows="4"></textarea>
+
+        <label>LINK ARTIKEL</label>
+        <input type="text" id="fullLink" placeholder="Wikipedia/NASA Link...">
+
+        <button onclick="processUpload()" id="btnUp">PUBLISH TO CLOUD</button>
+        <div id="status"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3XFfAwJbh0WHd7U_2tEazVgEg2bzbKTQ",
+            authDomain: "databaseeac.firebaseapp.com",
+            databaseURL: "https://databaseeac-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "databaseeac",
+            storageBucket: "databaseeac.firebasestorage.app",
+            messagingSenderId: "275001784016",
+            appId: "1:275001784016:web:5d193acbb56c1ac280d0d5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Global functions for buttons
+        window.auth = () => {
+            if(document.getElementById('pass').value === "ADMIN EAC") document.getElementById('login').style.display='none';
+            else alert("Key Salah!");
+        };
+
+        window.toggleMethod = () => {
+            const m = document.getElementById('uploadMethod').value;
+            document.getElementById('fileMethod').style.display = m === 'file' ? 'block' : 'none';
+            document.getElementById('urlMethod').style.display = m === 'url' ? 'block' : 'none';
+        };
+
+        window.updateName = () => {
+            const f = document.getElementById('fileInput').files[0];
+            if(f) document.getElementById('fileName').innerText = f.name;
+        };
+
+        window.processUpload = async () => {
+            const method = document.getElementById('uploadMethod').value;
+            const btn = document.getElementById('btnUp');
+            btn.disabled = true; btn.innerText = "PROCESSING...";
+
+            if(method === 'file') {
+                const file = document.getElementById('fileInput').files[0];
+                const formData = new FormData();
+                formData.append("image", file);
+                try {
+                    const res = await fetch("https://api.imgbb.com/1/upload?key=1771bef0a804415dcb82b2b9d9dc5034", { method: "POST", body: formData });
+                    const json = await res.json();
+                    saveToFirebase(json.data.url);
+                } catch(e) { alert("Upload Gagal!"); btn.disabled = false; }
+            } else {
+                saveToFirebase(document.getElementById('imageUrlLink').value);
+            }
+        };
+
+        function saveToFirebase(url) {
+            const dataRef = ref(db, 'cosmic_data');
+            const data = {
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').value,
+                img: url,
+                desc: document.getElementById('desc').value,
+                link: document.getElementById('fullLink').value || "#",
+                time: Date.now()
+            };
+            push(dataRef, data).then(() => {
+                document.getElementById('status').innerText = "ONLINE!";
+                setTimeout(() => window.location.href="index.html", 1000);
+            });
+        }
+    </script>
+</body>
+</html>
