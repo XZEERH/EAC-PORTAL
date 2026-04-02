@@ -94,7 +94,6 @@
             color: #f59e0b; letter-spacing: 2px; margin-top: 15px;
         }
 
-        /* --- NASA CARD --- */
         .nasa-card {
             margin: 20px; border-radius: 20px;
             background: #18181f; border: 1px solid rgba(255,255,255,0.05);
@@ -105,7 +104,6 @@
         .nasa-info h4 { color: #f59e0b; font-size: 10px; font-family: 'Orbitron'; margin-bottom: 5px; }
         .nasa-info p { color: var(--text-muted); font-size: 12px; }
 
-        /* --- SEARCH & STATUS --- */
         .search-bar { margin: 0 20px 25px; }
         .search-bar input {
             width: 100%; padding: 16px 20px;
@@ -118,7 +116,6 @@
             color: var(--text-muted); margin-bottom: 30px;
         }
 
-        /* --- PORTAL CARDS & ANIMATION --- */
         .card-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
         
         .card {
@@ -156,7 +153,6 @@
             opacity: 0.8;
         }
 
-        /* FOOTER SUDAH DITERANGKAN SESUAI REQUEST */
         .footer { 
             text-align: center; 
             color: #636e72; 
@@ -175,7 +171,6 @@
     </div>
 
     <div id="portal-content" style="display:none;">
-        
         <header class="header-section">
             <div class="status-capsule"><div id="status-dot"></div>SEMUA SISTEM ONLINE</div>
             <h1 class="title-portal">PORTAL EAC</h1>
@@ -199,7 +194,6 @@
         </div>
 
         <div class="card-container" id="cardContainer">
-            
             <div class="card" onclick="goto('https://xzeerh.github.io/REGISTRASI-EAC/', 'Komunitas 1')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                 <div class="tag-label">GABUNG</div>
@@ -207,9 +201,9 @@
                 <p>Pendaftaran utama bagi anggota baru yang ingin bergabung.</p>
             </div>
 
-            <div class="card" onclick="goto('https://xzeerh.github.io/REGISTRASI-EAC2/', 'Komunitas 2')">
+            <div class="card" onclick="goto('https://xzeerh.github.io/REGISTRASI2/', 'Komunitas 2')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <div class="tag-label">GABUNG PROYEK DUA</div>
+                <div class="tag-label">GABUNG PROYEK KEDUA</div>
                 <h3>REGISTRASI EAC 2</h3>
                 <p>Pendaftaran kolaborasi lanjutan kedua untuk proyek bersama.</p>
             </div>
@@ -225,7 +219,7 @@
                 <svg class="card-action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 <div class="tag-label">WEB</div>
                 <h3>Website Utama</h3>
-                <p>Akses ke pengelolaan pusat informasi seputar astro dengan tampilan visual terbaik.</p>
+                <p>Akses ke pengelolaan pusat informasi astro dengan tampilan visual terbaik.</p>
             </div>
 
             <div class="card" onclick="goto('https://eac-ai.vercel.app', 'Asisten AI')">
@@ -259,6 +253,13 @@
         setInterval(() => {
             document.getElementById('eac-time').innerText = new Date().toLocaleTimeString('en-GB') + " // EAC-TIME";
         }, 1000);
+
+        // --- RESET LOADING SAAT TOMBOL BACK DITEKAN ---
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
 
         window.addEventListener('load', () => {
             const loader = document.getElementById('loading-screen');
