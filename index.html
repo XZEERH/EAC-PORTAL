@@ -5,295 +5,325 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PORTAL EAC</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap');
 
         :root {
-            --bg-body: #010103;
-            --card-bg: rgba(25, 25, 45, 0.95);
+            --bg-dark: #0b0b0f;
+            --card-bg: #1c1c24;
             --accent-purple: #9b51e0;
             --accent-cyan: #38bdf8;
-            --label-red: #ff0000;
-            --text-dim: #b0b0b0;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a5;
+            --green-glow: #00ffaa;
+            --icon-color: #e2e8f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
-            background-color: var(--bg-body);
-            color: #ffffff;
-            font-family: 'Rajdhani', sans-serif;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            padding-bottom: 50px;
             overflow-x: hidden;
         }
 
-        /* --- LOADING SCREEN MURNI --- */
+        /* --- LOADING SCREEN --- */
         #loading-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-body);
-            display: none; 
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            background: var(--bg-dark);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             z-index: 9999;
+            transition: opacity 0.6s ease;
         }
-
-        .logo-area {
+        .premium-loader {
+            width: 120px; height: 3px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px; overflow: hidden;
             position: relative;
-            width: 250px; height: 250px;
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px;
         }
+        .premium-loader::after {
+            content: ''; position: absolute;
+            top: 0; left: 0; height: 100%; width: 40%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            animation: preloader 1.2s infinite ease-in-out;
+        }
+        @keyframes preloader { 0% { left: -40%; } 100% { left: 100%; } }
 
-        .eac-badge {
+        /* --- HEADER AREA --- */
+        .header-section { padding: 40px 20px 20px; text-align: center; }
+
+        .status-capsule {
+            display: inline-flex; align-items: center;
+            background: rgba(0, 255, 170, 0.05);
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            padding: 6px 16px; border-radius: 50px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px; font-weight: bold;
-            z-index: 10; text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
-            letter-spacing: 2px;
+            font-size: 10px; color: var(--green-glow);
+            letter-spacing: 1px; margin-bottom: 25px;
         }
 
-        .orbit {
-            position: absolute; border-radius: 50%;
-            border: 2px solid; background: transparent;
-            width: 100px; height: 240px;
+        #status-dot {
+            width: 8px; height: 8px;
+            background-color: var(--green-glow);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--green-glow);
+            animation: pulse-green 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
-        .o1 { border-color: var(--accent-purple); box-shadow: 0 0 10px var(--accent-purple); animation: wheel-spin 3s linear infinite; }
-        .o2 { border-color: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); animation: wheel-spin-miring-1 4s linear infinite reverse; }
-        .o3 { border-color: var(--label-red); box-shadow: 0 0 10px var(--label-red); animation: wheel-spin-miring-2 5s linear infinite; }
-
-        @keyframes wheel-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes wheel-spin-miring-1 { from { transform: rotate(-45deg); } to { transform: rotate(315deg); } }
-        @keyframes wheel-spin-miring-2 { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
-
-        .loading-text { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 2px; margin-top: 20px; opacity: 0.9; }
-        .dots::after { content: ''; animation: dots-loading 1.5s infinite; }
-        @keyframes dots-loading { 0% { content: ''; } 33% { content: '.'; } 66% { content: '..'; } 100% { content: '...'; } }
-
-        /* --- CONTAINER --- */
-        .container { width: 100%; max-width: 480px; padding: 20px; }
-
-        /* --- MENUJU MASUK --- */
-        .card-gate {
-            background: var(--card-bg); 
-            border-left: 4px solid var(--accent-purple);
-            padding: 30px 25px; 
-            border-radius: 15px; 
-            margin-top: 20px;
-            max-height: 85vh; 
-            overflow-y: auto; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .title-portal {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px; font-weight: 700;
+            letter-spacing: 4px; margin-bottom: 15px;
+            background: linear-gradient(180deg, #fff 0%, #777 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .card-gate h1 { font-family: 'Orbitron'; font-size: 1.6rem; margin-bottom: 5px; text-transform: uppercase; }
-        .version-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 25px; }
-        .version-text { font-size: 0.75rem; color: var(--text-dim); font-weight: bold; }
+        .time-display {
+            font-family: 'Orbitron', sans-serif; font-size: 12px;
+            color: #f59e0b; letter-spacing: 2px; margin-top: 15px;
+        }
 
-        .gate-content h2 { font-family: 'Orbitron'; font-size: 0.9rem; color: var(--accent-purple); margin: 20px 0 10px 0; }
-        .gate-content p { font-size: 0.95rem; line-height: 1.5; color: #e0e0e0; margin-bottom: 15px; }
+        /* --- NASA CARD --- */
+        .nasa-card {
+            margin: 20px; border-radius: 20px;
+            background: #18181f; border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        #nasa-data img { width: 100%; height: auto; display: block; }
+        .nasa-info { padding: 15px; }
+        .nasa-info h4 { color: #f59e0b; font-size: 10px; font-family: 'Orbitron'; margin-bottom: 5px; }
+        .nasa-info p { color: var(--text-muted); font-size: 12px; }
+
+        /* --- SEARCH & STATUS --- */
+        .search-bar { margin: 0 20px 25px; }
+        .search-bar input {
+            width: 100%; padding: 16px 20px;
+            background: #15151a; border: 1px solid #222;
+            border-radius: 15px; color: white; font-size: 14px; outline: none;
+        }
+        .mini-status {
+            display: flex; justify-content: center; gap: 20px;
+            font-family: 'Orbitron', sans-serif; font-size: 10px;
+            color: var(--text-muted); margin-bottom: 30px;
+        }
+
+        /* --- PORTAL CARDS & ANIMATION --- */
+        .card-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
         
-        .gate-list { list-style: none; margin-bottom: 20px; }
-        .gate-list li { font-size: 0.9rem; margin-bottom: 12px; padding-left: 25px; position: relative; color: #ccc; }
-        .gate-list li::before { content: "•"; position: absolute; left: 5px; color: var(--accent-purple); font-size: 1.2rem; }
-        .gate-list b { color: #fff; }
-
-        /* --- DASHBOARD --- */
-        #clock { text-align: center; color: #00ffaa; font-family: monospace; font-size: 0.9rem; margin: 5px 0 15px 0; letter-spacing: 1px; }
-        .nasa-label { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 2px; margin-bottom: 8px; display: block; text-align: left; padding-left: 5px; }
-        .nasa-card { width: 100%; height: 220px; background: #000 center/cover; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 20px rgba(0,0,0,0.5); position: relative; }
-
-        /* --- PORTAL CARDS --- */
-        .grid-menu { display: flex; flex-direction: column; gap: 20px; padding-bottom: 80px; }
-        .menu-item { 
-            background: var(--card-bg); padding: 25px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); 
-            text-decoration: none; color: inherit; display: block; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            opacity: 0; filter: blur(5px); transform: translateY(30px);
+        .card {
+            background: var(--card-bg); border-radius: 25px;
+            padding: 25px; position: relative;
+            border: 1px solid rgba(255,255,255,0.03);
+            cursor: pointer;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            opacity: 0; transform: translateY(30px);
         }
-        .menu-item:hover, .menu-item:active { transform: scale(1.05); border-color: var(--accent-purple); background: rgba(35, 35, 60, 1); }
-        .menu-item.visible { opacity: 1; filter: blur(0); transform: translateY(0); }
-        .menu-item h3 { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 8px; color: #fff; }
-        .menu-item p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.4; }
 
-        .btn-enter { width: 100%; padding: 18px; margin-top: 10px; background: #1a1a25; border: 1px solid #333; color: #555; font-weight: bold; border-radius: 10px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; }
-        .btn-enter.active { background: var(--accent-purple); color: white; border: none; box-shadow: 0 0 15px var(--accent-purple); }
+        .card.reveal { opacity: 1; transform: translateY(0); }
+        .card.exit { opacity: 0; transform: translateY(30px); }
+
+        .card:active { transform: scale(0.96); }
+
+        .tag-label {
+            background: rgba(245, 158, 11, 0.1); color: #f59e0b;
+            padding: 4px 12px; border-radius: 8px;
+            font-size: 9px; font-weight: bold; display: inline-block;
+            margin-bottom: 12px; font-family: 'Orbitron';
+        }
+
+        .card h3 { font-size: 18px; margin-bottom: 8px; }
+        .card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding-right: 60px; }
+
+        .card-action-icon {
+            position: absolute; right: 25px; top: 25px;
+            width: 26px; height: 26px;
+            fill: none;
+            stroke: var(--icon-color);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.8;
+        }
+
+        /* FOOTER SUDAH DITERANGKAN SESUAI REQUEST */
+        .footer { 
+            text-align: center; 
+            color: #636e72; 
+            font-family: 'Orbitron'; 
+            font-size: 9px; 
+            margin-top: 50px; 
+            letter-spacing: 2px; 
+        }
     </style>
 </head>
 <body>
 
-    <audio id="click-sound" preload="auto">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
-    </audio>
-
     <div id="loading-screen">
-        <div class="logo-area">
-            <div class="orbit o1"></div>
-            <div class="orbit o2"></div>
-            <div class="orbit o3"></div>
-            <div class="eac-badge">EAC</div>
-        </div>
-        <div class="loading-text">MASUK KE SISTEM<span class="dots"></span></div>
+        <div class="premium-loader"></div>
+        <div class="load-text" id="load-status" style="font-family:'Orbitron'; font-size:10px; color:#555; margin-top:15px; letter-spacing: 2px;">SYSTEM INITIALIZING</div>
     </div>
 
-    <div class="container">
-        <div id="gate-page">
-            <div class="card-gate">
-                <h1>MENUJU MASUK</h1>
-                <div class="version-row">
-                    <span class="version-text">DATABASE PORTAL // VERSI 1.0</span>
-                    <span class="version-text" style="color:var(--accent-purple)">EAC</span>
-                </div>
-                <div class="gate-content">
-                    <p style="font-weight: bold; color: var(--accent-cyan);">Halo, Sang Angkasa!</p>
-                    <p>Sistem ini telah diperbarui dengan fitur visual. Harap baca panduan singkat sebelum melanjutkan:</p>
-                    <h2>01. NAVIGASI</h2>
-                    <ul class="gate-list">
-                        <li>Gunakan <b>menu ini</b> untuk mengakses halaman database utama.</li>
-                        <li>Gunakan <b>animasi scroll</b> untuk melihat semua layanan tersedia.</li>
-                    </ul>
-                    <h2>02. FITUR TERBARU</h2>
-                    <ul class="gate-list">
-                        <li><b>Data NASA:</b> Gambar asli dari satelit yang diperbarui setiap hari.</li>
-                        <li><b>Asisten AI:</b> Gunakan portal AI untuk tanya jawab otomatis.</li>
+    <div id="portal-content" style="display:none;">
+        
+        <header class="header-section">
+            <div class="status-capsule"><div id="status-dot"></div>SEMUA SISTEM ONLINE</div>
+            <h1 class="title-portal">PORTAL IEA</h1>
+            <p class="welcome-greet" style="color:var(--text-muted)">Selamat Datang, <span style="color:var(--accent-purple)">Angkasa</span></p>
+            <div class="time-display" id="eac-time">00:00:00 // EAC-TIME</div>
+        </header>
 
-                        <li><b>Pendaftaran:</b>
-Ada pendaftaran khusus untuk menjadi anggota EAC.</li>
-                       <li><b>Website resmi:</b>
-Berisi informasi khusus dari EAC yang bisa dibaca.</li>
-
-                      <li><b>Kalkulator khusus:</b>
-Kalkulator untuk membantu menghitung ilmiah.</li>
-
-                    </ul>
-                    <h2>03. NOTE!</h2>
-                    <ul class="gate-list">
-                        <li><b>Peringatan!:</b>
-Portal dalam tahap pengembangan, jadi bisa saja portal nya rusak dalam keadaan apapun tersebut!</li>
-                    </ul>
-                </div>
-                <div onclick="playClick(); toggleCheck();" style="display:flex; align-items:center; gap:12px; cursor:pointer; margin: 25px 0 15px 0; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
-                    <div id="checkbox" style="width:24px; height:24px; border:2px solid var(--accent-purple); border-radius:6px; transition: 0.3s;"></div>
-                    <span style="font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">SAYA PAHAM & SIAP MASUK</span>
-                </div>
-                <button class="btn-enter" id="enter-btn" disabled onclick="playClick(); handleAgreement();">MASUK KE SISTEM...</button>
+        <div class="nasa-card">
+            <div id="nasa-data">
+                <div style="height: 150px; display: flex; align-items: center; justify-content: center; color: #333;">Fetching Satellite Data...</div>
             </div>
         </div>
 
-        <div id="dashboard-page" style="display:none;">
-            <h1 style="text-align:center; font-family:'Orbitron'; letter-spacing:8px; font-size: 2rem; margin-top: 10px;">PORTAL EAC</h1>
-            <p id="clock">00:00:00 // EAC-TIME</p>
-            <span class="nasa-label">DATA NASA HARIAN</span>
-            <div class="nasa-card" id="nasa-card"></div>
-            <div class="grid-menu" id="grid-container">
-                <div onclick="playClick(); openPortal('https://xzeerh.github.io/REGISTRASI-EAC/')" class="menu-item">
-                    <h3>Registrasi EAC 1</h3>
-                    <p>Pendaftaran utama bagi calon anggota baru komunitas.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://xzeerh.github.io/REGISTRASI-EAC2/')" class="menu-item">
-                    <h3>Registrasi EAC 2</h3>
-                    <p>Pendaftaran resmi versi kedua bagi calon anggota baru komunitas.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m')" class="menu-item">
-                    <h3>Saluran WhatsApp</h3>
-                    <p>Tempat informasi terkini yang bisa anda ikuti.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://website-resmi.vercel.app/')" class="menu-item">
-                    <h3>Website Resmi 1</h3>
-                    <p>Akses ke pengelolaan pusat ilmu dengan tampilan visual terbaik.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://website-eac-two.vercel.app/')" class="menu-item">
-                    <h3>Website Resmi 2</h3>
-                    <p>Cadangan portal utama untuk memastikan aksesibilitas data ilmu setiap saat.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://eac-ai.vercel.app/')" class="menu-item">
-                    <h3>Asisten AI</h3>
-                    <p>Tanya jawab otomatis seputar astronomi dan sains dengan kecerdasan buatan.</p>
-                </div>
-                <div onclick="playClick(); openPortal('https://kalkulator-ilmiah.vercel.app/')" class="menu-item">
-                    <h3>Kalkulator Ilmiah</h3>
-                    <p>Alat hitung fisika dan konversi data untuk keperluan riset antariksa.</p>
-                </div>
+        <div class="search-bar">
+            <input type="text" id="portalSearch" placeholder="Cari menu akses..." onkeyup="searchMenu()">
+        </div>
+
+        <div class="mini-status">
+            <span>SERVER: STABIL</span>
+            <span>PING: <span id="ping-val">--</span> MS</span>
+        </div>
+
+        <div class="card-container" id="cardContainer">
+            
+            <div class="card" onclick="goto('https://xzeerh.github.io/REGISTRASI-EAC/', 'Komunitas 1')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                <div class="tag-label">GABUNG</div>
+                <h3>REGISTRASI EAC 1</h3>
+                <p>Pendaftaran utama bagi anggota baru yang ingin bergabung.</p>
+            </div>
+
+            <div class="card" onclick="goto('https://xzeerh.github.io/REGISTRASI2/', 'Komunitas 2')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <div class="tag-label">EKSPANSI</div>
+                <h3>REGISTRASI EAC 2</h3>
+                <p>Pendaftaran kolaborasi lanjutan kedua untuk proyek bersama.</p>
+            </div>
+
+            <div class="card" onclick="goto('https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m', 'Saluran WhatsApp')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <div class="tag-label">INFO</div>
+                <h3>Saluran WhatsApp</h3>
+                <p>Gabung ke saluran resmi untuk mendapatkan info terbaru kegiatan kami.</p>
+            </div>
+
+            <div class="card" onclick="goto('https://xzeerh.github.io/WEBSITE-RESMI/', 'Website Resmi')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <div class="tag-label">WEB</div>
+                <h3>Website Utama</h3>
+                <p>Akses ke pengelolaan pusat informasi seputar astro dengan tampilan visual terbaik.</p>
+            </div>
+
+            <div class="card" onclick="goto('https://eac-ai.vercel.app', 'Asisten AI')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <div class="tag-label">BOT</div>
+                <h3>Asisten AI</h3>
+                <p>Tanya jawab otomatis seputar astronomi dan sains serta lainnya.</p>
+            </div>
+
+            <div class="card" onclick="goto('https://kalkulator-ilmiah.vercel.app/', 'Kalkulator Ilmiah')">
+                <svg class="card-action-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line><line x1="16" y1="18" x2="16" y2="18"></line></svg>
+                <div class="tag-label">TOOLS</div>
+                <h3>Kalkulator Ilmiah</h3>
+                <p>Alat hitung fisika dan riset antariksa.</p>
             </div>
         </div>
+
+        <div class="footer">SISTEM TERKENDALI AMAN | EAC PUSAT INFORMASI</div>
     </div>
 
     <script>
-        const NASA_KEY = 'JMcJ1UGIgdFUs4qDWRaPEONheF5zazhnIdMhs4eH';
-        const ls = document.getElementById('loading-screen');
-        const clickSfx = document.getElementById('click-sound');
-
-        window.onload = () => {
-            fetchNasa();
-            setInterval(updateClock, 1000);
-        };
-
-        function playClick() {
-            clickSfx.currentTime = 0;
-            clickSfx.play();
-        }
-
-        function toggleCheck() {
-            const cb = document.getElementById('checkbox');
-            const btn = document.getElementById('enter-btn');
-            if (cb.style.background.includes('rgb(155, 81, 224)')) {
-                cb.style.background = 'transparent';
-                btn.disabled = true;
-                btn.classList.remove('active');
-            } else {
-                cb.style.background = '#9b51e0';
-                btn.disabled = false;
-                btn.classList.add('active');
+        function searchMenu() {
+            let input = document.getElementById('portalSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('h3').innerText.toLowerCase();
+                cards[i].style.display = title.includes(input) ? "" : "none";
             }
         }
 
-        // LOGIKA BARU: Ganti halaman DI DALAM setTimeout biar gak ada layar hitam kosong
-        function handleAgreement() {
-            ls.style.display = 'flex';
+        setInterval(() => {
+            document.getElementById('eac-time').innerText = new Date().toLocaleTimeString('en-GB') + " // IEA-TIME";
+        }, 1000);
+
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loading-screen');
+            const status = document.getElementById('load-status');
+            
             setTimeout(() => {
-                // Sembunyikan Gerbang & Munculkan Dashboard dulu sebelum loading ditutup
-                document.getElementById('gate-page').style.display = 'none';
-                document.getElementById('dashboard-page').style.display = 'block';
-                initScrollAnimation();
+                status.innerText = "ACCESS GRANTED";
+                status.style.color = "#00ffaa";
                 
-                // Baru tutup loading-nya biar transisi halus
-                ls.style.display = 'none';
-            }, 4000);
-        }
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        document.getElementById('portal-content').style.display = 'block';
+                        revealCards();
+                    }, 600);
+                }, 1000);
+            }, 2000);
+        });
 
-        function openPortal(url) {
-            ls.style.display = 'flex';
+        function goto(url, target) {
+            const loader = document.getElementById('loading-screen');
+            const status = document.getElementById('load-status');
+            
+            loader.style.display = 'flex'; 
+            loader.style.opacity = '1';
+            status.innerText = "CONNECTING TO " + target.toUpperCase();
+            status.style.color = "#555";
+
             setTimeout(() => {
-                ls.style.display = 'none';
-                window.open(url, '_blank');
-            }, 4000);
+                status.innerText = "ACCESS GRANTED TO " + target.toUpperCase();
+                status.style.color = "#00ffaa";
+                
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 1200);
+            }, 2500);
         }
 
-        async function fetchNasa() {
-            try {
-                const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`);
-                const data = await res.json();
-                document.getElementById('nasa-card').style.backgroundImage = `url('${data.url}')`;
-            } catch (e) {}
-        }
+        fetch(`https://api.nasa.gov/planetary/apod?api_key=JMcJ1UGIgdFUs4qDWRaPEONheF5zazhnIdMhs4eH`)
+            .then(res => res.json()).then(data => {
+                document.getElementById('nasa-data').innerHTML = `<img src="${data.url}"><div class="nasa-info"><h4>NASA DAILY:</h4><p>${data.title}</p></div>`;
+            });
 
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
-                now.getMinutes().toString().padStart(2, '0') + ":" + 
-                now.getSeconds().toString().padStart(2, '0') + " // EAC-TIME";
-        }
+        setInterval(() => {
+            const p = Math.floor(Math.random() * 100) + 10;
+            const el = document.getElementById('ping-val');
+            el.innerText = p;
+            el.style.color = p < 50 ? "#00ffaa" : "#f59e0b";
+        }, 3000);
 
-        function initScrollAnimation() {
-            const items = document.querySelectorAll('.menu-item');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                    else entry.target.classList.remove('visible');
-                });
-            }, { threshold: 0.1 });
-            items.forEach(item => observer.observe(item));
+        function revealCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < window.innerHeight - 50 && cardTop > 0) {
+                    card.classList.add('reveal');
+                    card.classList.remove('exit');
+                } else {
+                    card.classList.remove('reveal');
+                    card.classList.add('exit');
+                }
+            });
         }
+        window.addEventListener('scroll', revealCards);
     </script>
 </body>
 </html>
