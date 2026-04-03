@@ -33,7 +33,6 @@ Portal ini dirancang sebagai hub pusat bagi komunitas **Education Astronomy Crea
 
 
 ## 🛰️ TECHNOLOGIES USED
-
 | Component | Technology | Role |
 | :--- | :--- | :--- |
 | **Engine** | HTML5 / CSS3 / JS | Core Structure & Galactic Styling |
