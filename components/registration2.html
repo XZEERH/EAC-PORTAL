@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC Registration 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <style>
+        /* CSS KAMU TETAP SAMA */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap');
+        :root {
+            --bg-body: #010103; --bg-card-form: #0d0d1a; --accent-purple: #9b51e0;
+            --accent-cyan: #00e5ff; --label-red: #ff0000; --input-bg: #151525;
+            --btn-grad: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
+        }
+        body { background-color: var(--bg-body); color: #ffffff; font-family: 'Rajdhani', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 40px 15px; }
+        .logo-area { position: relative; width: 140px; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; }
+        .eac-badge { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: bold; z-index: 10; text-shadow: 0 0 10px #a855f7; }
+        .orbit { position: absolute; border-radius: 50%; width: 130px; height: 48px; border: 1.5px solid; }
+        .o1 { border-color: var(--accent-purple); transform: rotate(45deg); animation: orb 3s linear infinite; }
+        .o2 { border-color: #38bdf8; transform: rotate(-45deg); animation: orb 4s linear infinite reverse; }
+        .o3 { border-color: var(--label-red); transform: rotate(90deg); animation: orb 5s linear infinite; opacity: 0.6; }
+        @keyframes orb { 0% { transform: rotate(var(--tw-rotate, 0deg)) scaleY(1); } 100% { transform: rotate(calc(var(--tw-rotate, 0deg) + 360deg)) scaleY(1); } }
+        .main-title { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 5px; }
+        .main-title span { color: #a855f7; text-shadow: 0 0 15px #a855f7; }
+        .desc-title { color: #e67e22; font-size: 11px; letter-spacing: 2px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; }
+        .form-container { background: var(--bg-card-form); width: 100%; max-width: 380px; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(0,0,0,0.5); box-sizing: border-box; }
+        .field { margin-bottom: 15px; }
+        label { display: block; color: var(--label-red); font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid #252535; border-radius: 8px; padding: 12px; color: #ccc; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        .btn-generate { width: 100%; padding: 15px; border-radius: 30px; border: none; background: var(--btn-grad); color: white; font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        #loader { display: none; flex-direction: column; align-items: center; margin: 20px 0; }
+        .spin { width: 30px; height: 30px; border: 4px solid #111; border-top: 4px solid var(--accent-purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .db-box { margin-top: 30px; width: 100%; max-width: 380px; background: #0d0d1a; padding: 20px; border-radius: 15px; box-sizing: border-box; }
+        table { width: 100%; color: #fff; font-size: 14px; text-align: left; }
+        th { color: #555; text-transform: uppercase; font-size: 11px; padding-bottom: 10px; }
+        .status-terdaftar { color: #22c55e; font-weight: bold; }
+
+        /* --- STYLING KARTU AGAR BISA DILIHAT (PREVIEW) --- */
+        #id-card-capture { 
+            width: 100%; 
+            max-width: 330px; /* Ukuran pas di layar HP */
+            aspect-ratio: 16/9;
+            background-color: #01040a; 
+            border: 3px solid var(--accent-cyan); 
+            border-radius: 15px; 
+            padding: 15px; 
+            box-sizing: border-box; 
+            color: white;
+            margin: 0 auto 20px auto;
+            display: none; /* Awalnya sembunyi */
+        }
+        .card-header-text { text-align: right; font-size: 10px; color: #777; margin: 0; }
+        .card-title { text-align: center; font-size: 16px; font-weight: bold; letter-spacing: 2px; margin: 5px 0; font-family: 'Arial', sans-serif; }
+        .card-line { width: 100%; height: 1px; background-color: #004d4d; margin-bottom: 15px; }
+        .card-info-row { display: flex; margin-bottom: 8px; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; }
+        .card-label { width: 80px; color: var(--accent-cyan); text-transform: uppercase; flex-shrink: 0; }
+        .card-value { color: white; text-transform: uppercase; }
+
+        #preview-section { display: none; margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="logo-area">
+        <div class="orbit o1" style="--tw-rotate: 45deg"></div>
+        <div class="orbit o2" style="--tw-rotate: -45deg"></div>
+        <div class="orbit o3" style="--tw-rotate: 90deg"></div>
+        <div class="eac-badge">EAC</div>
+    </div>
+
+    <div class="main-title">EAC <span>REGISTRASI 2</span></div>
+    <div class="desc-title">Education Astronomy Creator</div>
+
+    <div class="form-container" id="form-section">
+        <div class="field"><label>Nama Lengkap</label><input type="text" id="in-nama" placeholder="Nama asli..."></div>
+        <div class="field"><label>Umur</label><input type="number" id="in-umur" placeholder="minimal 12"></div>
+        <div class="field">
+            <label>Status</label>
+            <select id="in-status">
+                <option>lainnya</option><option>Pelajar</option><option>Mahasiswa</option><option>Umum</option>
+            </select>
+        </div>
+        <div class="field"><label>Nama akun Tiktok</label><input type="text" id="in-tiktok" placeholder="tiktok.com/@username"></div>
+        <div class="field"><label>Alasan Bergabung</label><textarea id="in-alasan" rows="2" placeholder="Tulis alasan..."></textarea></div>
+
+        <button class="btn-generate" onclick="generateIDCard()">KIRIM KE SISTEM DATA</button>
+    </div>
+
+    <div id="loader">
+        <div class="spin"></div>
+        <p style="font-family:'Orbitron'; font-size: 10px; margin-top: 10px; color: var(--accent-purple);">MENGHUBUNGKAN DATABASE...</p>
+    </div>
+
+    <div id="preview-section" class="form-container">
+        <p style="color:var(--accent-cyan); font-weight:bold; margin-bottom: 15px;">KARTU IDENTITAS ANDA</p>
+
+        <div id="id-card-capture">
+            <p class="card-header-text">EAC COMMUNITY 2</p>
+            <div class="card-title">KARTU IDENTITAS EAC</div>
+            <div class="card-line"></div>
+            <div class="card-info-row"><div class="card-label">NAMA:</div><div class="card-value" id="out-nama"></div></div>
+            <div class="card-info-row"><div class="card-label">UMUR:</div><div class="card-value" id="out-umur"></div></div>
+            <div class="card-info-row"><div class="card-label">STATUS:</div><div class="card-value" id="out-status"></div></div>
+            <div class="card-info-row"><div class="card-label">TIKTOK:</div><div class="card-value" id="out-tiktok"></div></div>
+            <div class="card-info-row"><div class="card-label">ALASAN:</div><div class="card-value" id="out-alasan"></div></div>
+        </div>
+
+        <button class="btn-generate" style="background:#22c55e" onclick="downloadAction()">UNDUH KARTU</button>
+        <button class="btn-generate" onclick="window.location.href='https://chat.whatsapp.com/C0CyxNd1FYsEbCqtmHLncr?mode=gi_t'">GABUNG GRUP</button>
+    </div>
+
+    <div class="db-box">
+        <p style="font-family:'Orbitron'; color:var(--accent-purple); font-size:12px;">DATABASE AKTIVITAS</p>
+        <table>
+            <thead><tr><th>ANGGOTA</th><th>USIA</th><th>STATUS</th></tr></thead>
+            <tbody id="db-list"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // CONFIG FIREBASE
+        const firebaseConfig = {
+            databaseURL: "https://databasependaftaran-b1b43-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Ambil Data Realtime
+        database.ref('pendaftar').on('value', (snapshot) => {
+            const list = document.getElementById('db-list');
+            list.innerHTML = "";
+            snapshot.forEach((child) => {
+                const val = child.val();
+                const row = `<tr><td>${val.nama}</td><td>${val.umur} Thn</td><td class="status-terdaftar">TERDAFTAR</td></tr>`;
+                list.insertAdjacentHTML('afterbegin', row);
+            });
+        });
+
+        function generateIDCard() {
+            const nama = document.getElementById('in-nama').value;
+            const umur = document.getElementById('in-umur').value;
+            const status = document.getElementById('in-status').value;
+            const tiktok = document.getElementById('in-tiktok').value;
+            const alasan = document.getElementById('in-alasan').value;
+
+            if(!nama || !alasan) return alert("Isi data dengan lengkap!");
+
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('loader').style.display = 'flex';
+
+            database.ref('pendaftar').push({ nama, umur, status, tiktok, alasan }).then(() => {
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('preview-section').style.display = 'block';
+                    document.getElementById('id-card-capture').style.display = 'block'; // Kartu jadi kelihatan
+
+                    document.getElementById('out-nama').innerText = nama;
+                    document.getElementById('out-umur').innerText = umur;
+                    document.getElementById('out-status').innerText = status;
+                    document.getElementById('out-tiktok').innerText = tiktok;
+                    document.getElementById('out-alasan').innerText = alasan;
+                }, 2000);
+            });
+        }
+
+        function downloadAction() {
+            // Pas download, pakai scale tinggi biar jernih
+            html2canvas(document.getElementById('id-card-capture'), {scale: 3, backgroundColor: '#01040a'}).then(canvas => {
+                const a = document.createElement('a');
+                a.download = `EAC_CARD_${document.getElementById('out-nama').innerText}.png`;
+                a.href = canvas.toDataURL();
+                a.click();
+            });
+        }
+    </script>
+</body>
+</html>
