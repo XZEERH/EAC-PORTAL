@@ -1,0 +1,55 @@
+:root { --cyan: #00f2ff; --green: #39ff14; --bg: #020205; --card: #0d0d12; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { margin: 0; background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+
+/* GREETING SYSTEM CSS */
+#welcomeOverlay { position:fixed; top:0; left:0; width:100%; height:100%; background:#020205; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:'Orbitron'; transition: 1s; }
+.pulse-dot-big { width:15px; height:15px; background:var(--cyan); border-radius:50%; box-shadow: 0 0 15px var(--cyan); animation: pulse 1s infinite; margin-bottom: 20px; }
+#welcomeText { color:var(--cyan); font-size:12px; letter-spacing:3px; }
+.load-bar { width:120px; height:2px; background:#111; margin-top:15px; position:relative; overflow:hidden; }
+#progressBar { position:absolute; width:0%; height:100%; background:var(--cyan); transition: 2s; }
+
+/* Background Galaxy */
+.stars { position: fixed; top:0; left:0; width:100%; height:100%; background: #000 url('https://www.transparenttextures.com/patterns/stardust.png'); z-index: -2; opacity: 0.6; }
+.twinkling { position: fixed; top:0; left:0; width:100%; height:100%; background: transparent url('https://www.transparenttextures.com/patterns/stars.png'); z-index: -1; animation: move-twink 200s linear infinite; opacity: 0.3; }
+@keyframes move-twink { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
+
+header { padding: 30px 15px; text-align: center; }
+.top-title { font-family: 'Orbitron'; font-size: 10px; color: #555; letter-spacing: 3px; }
+.main-logo { font-family: 'Orbitron'; font-size: 24px; margin: 10px 0; }
+.main-logo span { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+
+.search-container { background: rgba(255,255,255,0.03); border: 1px solid #222; border-radius: 5px; padding: 12px; margin: 20px auto; max-width: 90%; }
+.search-container input { background: transparent; border: none; color: white; width: 100%; outline: none; }
+
+.status-row { display: flex; justify-content: center; gap: 20px; font-family: 'Orbitron'; font-size: 9px; margin-bottom: 25px; }
+.status-active { color: var(--green); display: flex; align-items: center; gap: 5px; }
+.pulse-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* Filter Rak Besar */
+.filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 90%; margin: 0 auto; }
+.filter-btn { background: transparent; border: 1px solid #333; color: #666; padding: 12px 0; border-radius: 6px; font-size: 10px; font-family: 'Orbitron'; }
+.filter-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,242,255,0.1); }
+
+/* Main Card Padded */
+.main-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 25px; }
+.card { background: var(--card); border-radius: 8px; overflow: hidden; border: 1px solid #1a1a1a; position: relative; }
+.card img { width: 100%; height: 180px; object-fit: cover; }
+.card-info { padding: 15px; border-left: 3px solid var(--cyan); }
+.card-info h3 { margin: 0; font-family: 'Orbitron'; color: var(--cyan); font-size: 16px; }
+.card-info p { margin: 6px 0 0; color: #888; font-size: 12px; }
+
+/* Modal Detail */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; }
+.modal-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); }
+.modal-content { position: relative; background: var(--bg); width: 100%; height: 100%; overflow-y: auto; }
+.close-btn { position: fixed; right: 20px; top: 20px; font-size: 30px; color: var(--cyan); z-index: 1010; }
+#modalImg { width: 100%; height: 35vh; object-fit: cover; border-bottom: 2px solid var(--cyan); }
+.modal-body { padding: 25px; }
+.tag-label { background: #111; display: inline-block; padding: 5px 12px; font-size: 10px; margin: 15px 0; color: var(--cyan); font-family: 'Orbitron'; border: 1px solid #222; }
+.access-btn { display: block; border: 1px solid var(--cyan); color: var(--cyan); text-align: center; padding: 15px; text-decoration: none; font-family: 'Orbitron'; font-size: 11px; margin-top: 20px; }
+
+.system-footer { padding: 40px 20px; text-align: center; color: var(--green); font-size: 9px; font-family: 'Orbitron'; opacity: 0.4; letter-spacing: 2px; }
+.fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
