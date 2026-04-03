@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EAC COSMIC DATABASE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="welcomeOverlay">
+        <div class="pulse-dot-big"></div>
+        <h2 id="welcomeText">INITIALIZING SYSTEM...</h2>
+        <div class="load-bar"><div id="progressBar"></div></div>
+    </div>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <header class="fade-in">
+        <h2 class="top-title">EAC PUSAT INFORMASI</h2>
+        <h1 class="main-logo">COSMIC <span>DATABASE</span></h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari Informasi Kosmik..." onkeyup="searchData()">
+        </div>
+
+        <div class="status-row">
+            <div class="status-active"><div class="pulse-dot"></div><span>SISTEM AKTIF</span></div>
+            <div class="signal-monitor"><span id="wifi-icon">SIGNAL</span> <span id="ping-ms">00ms</span></div>
+        </div>
+
+        <div class="filter-grid">
+            <button class="filter-btn active" onclick="filterData('all')">SEMUA</button>
+            <button class="filter-btn" onclick="filterData('Planet')">PLANET</button>
+            <button class="filter-btn" onclick="filterData('Galaksi')">GALAKSI</button>
+            <button class="filter-btn" onclick="filterData('Bintang')">BINTANG</button>
+            <button class="filter-btn" onclick="filterData('Objek')">OBJEK</button>
+            <button class="filter-btn" onclick="filterData('Misteri')">MISTERI</button>
+            <button class="filter-btn" onclick="filterData('Teori')">TEORI</button>
+        </div>
+    </header>
+
+    <main id="cardContainer" class="main-grid fade-in"></main>
+
+    <div id="modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="">
+            <div class="modal-body">
+                <h2 id="modalTitle"></h2>
+                <div class="tag-label" id="modalTag">OBJECT</div>
+                <p id="modalDesc"></p>
+                <div class="integrity-panel">
+                    <span class="int-text">DATA INTEGRITY: <span style="color:var(--green)">100% VERIFIED</span></span>
+                </div>
+                <a id="modalLink" href="#" target="_blank" class="access-btn">BACA RISET LENGKAP →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer><div class="system-footer">SISTEM TERKENDALI,BERFUNGSI AMAN | EAC PUSAT INFORMASI</div></footer>
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
