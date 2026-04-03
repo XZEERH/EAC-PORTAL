@@ -32,7 +32,6 @@ Portal ini dirancang sebagai hub pusat bagi komunitas **Education Astronomy Crea
 └── folder—pages/       # Sub-Sektor (Halaman Admin & Modul)
 
 
-🛰️ TECHNOLOGIES USED
 ## 🛰️ TECHNOLOGIES USED
 
 | Component | Technology | Role |
