@@ -31,10 +31,14 @@ Portal ini dirancang sebagai hub pusat bagi komunitas **Education Astronomy Crea
 │   └── calc.js         # Logic Komputasi Sains
 └── folder—pages/       # Sub-Sektor (Halaman Admin & Modul)
 
+
 🛰️ TECHNOLOGIES USED
-Component Technology Role
-Engine HTML5 / CSS3 / JS Core Structure & Galactic Styling
-Fonts Orbitron & Inter Futuristic Typography
-API NASA APOD Real-time Space Data
-Hosting Vercel High-speed Global Deployment
-Management MGit (Mobile) Repository & Token Control
+## 🛰️ TECHNOLOGIES USED
+
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Engine** | HTML5 / CSS3 / JS | Core Structure & Galactic Styling |
+| **Fonts** | Orbitron & Inter | Futuristic Typography |
+| **API** | NASA APOD | Real-time Space Data |
+| **Hosting** | Vercel | High-speed Global Deployment |
+| **Management** | MGit (Mobile) | Repository & Token Control |
