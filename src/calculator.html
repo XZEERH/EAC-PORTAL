@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Astro-Workstation</title>
+    <link rel="stylesheet" href="calc.css">
+</head>
+<body>
+
+    <div id="loader" class="loader-container">
+        <div class="astro-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="1.5">
+                <circle cx="12" cy="12" r="9" stroke-dasharray="40 10" />
+                <path d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+            </svg>
+        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <p>Membuka sistem ilmiah...</p>
+    </div>
+
+    <main id="app" class="hidden">
+        <header>
+            <div class="header-info">
+                <span class="brand">ASTRO-STATION</span>
+                <span id="clock">00:00:00</span>
+            </div>
+            
+            <nav class="top-nav">
+                <button onclick="switchTab('calc', this)" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 12h10M12 7v10"/></svg>
+                    <span>CALC</span>
+                </button>
+                <button onclick="switchTab('astro', this)" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+                    <span>ASTRO</span>
+                </button>
+                <button onclick="switchTab('unit', this)" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-9M14 17H5M7 7l-2 2 2 2M17 17l2-2-2-2"/></svg>
+                    <span>UNIT</span>
+                </button>
+                <button onclick="switchTab('notes', this)" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>NOTES</span>
+                </button>
+            </nav>
+        </header>
+
+        <section id="display-section" class="display-area">
+            <div id="prev-op"></div>
+            <div id="current-op">0</div>
+        </section>
+
+        <section id="content" class="content-view"></section>
+    </main>
+
+    <script src="calc.js"></script>
+</body>
+</html>
