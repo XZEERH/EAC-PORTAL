@@ -3,76 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAC - ADMIN CENTER</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ADMIN EAC CENTER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { background: #020205; padding: 20px; color: white; font-family: 'Rajdhani'; }
-        .admin-form { max-width: 500px; margin: 40px auto; background: #0d0d12; padding: 25px; border: 1px solid #00f2ff; border-radius: 8px; box-shadow: 0 0 20px rgba(0,242,255,0.1); }
-        label { font-size: 10px; color: #555; font-family: 'Orbitron'; display: block; margin-top: 15px; letter-spacing: 1px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #050508; border: 1px solid #222; color: white; border-radius: 4px; font-family: 'Rajdhani'; outline: none; }
-        .file-box { border: 1px dashed #444; padding: 20px; text-align: center; cursor: pointer; margin-top: 10px; }
-        button { width: 100%; padding: 15px; border: none; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; margin-top: 25px; background: #39ff14; color: #000; }
-        #status { font-size: 10px; text-align: center; margin-top: 15px; color: #00f2ff; font-family: 'Orbitron'; }
+        :root { --cyan: #00f2ff; --green: #39ff14; --red: #ff4444; --bg: #050508; --card: #0d0d12; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        body { background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; padding: 20px; }
+
+        /* --- LOGIN SYSTEM --- */
+        #loginOverlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #050508; z-index: 10000; display: flex;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; transition: 0.5s;
+        }
+        .login-box {
+            background: var(--card); padding: 30px; border-radius: 15px;
+            border: 1px solid var(--cyan); text-align: center; width: 100%; max-width: 320px;
+            box-shadow: 0 0 20px rgba(0,242,255,0.2);
+        }
+
+        /* --- LAYOUT ADMIN --- */
+        .admin-logo { font-family: 'Orbitron'; text-align: center; margin-bottom: 25px; letter-spacing: 3px; font-size: 20px; }
+        .admin-logo span { color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
+
+        .admin-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 25px; }
+        .tab-item { 
+            background: var(--card); border: 1px solid #1a1a1a; padding: 12px 5px; 
+            display: flex; flex-direction: column; align-items: center; 
+            border-radius: 8px; cursor: pointer; transition: 0.3s;
+        }
+        .tab-item svg { width: 20px; height: 20px; margin-bottom: 6px; stroke: #444; transition: 0.3s; }
+        .tab-item span { font-size: 7px; font-family: 'Orbitron'; color: #444; font-weight: bold; }
+        .tab-item.active { border-color: var(--cyan); background: rgba(0,242,255,0.05); }
+        .tab-item.active svg { stroke: var(--cyan); filter: drop-shadow(0 0 5px var(--cyan)); }
+        .tab-item.active span { color: var(--cyan); }
+
+        /* --- FORM STYLING --- */
+        .form-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #1a1a1a; margin-bottom: 25px; }
+        .form-card h2 { font-family: 'Orbitron'; font-size: 12px; margin-bottom: 15px; color: var(--cyan); border-left: 3px solid var(--cyan); padding-left: 10px; }
+
+        input, textarea, select { 
+            width: 100%; background: #08080a; border: 1px solid #222; 
+            padding: 12px; color: white; margin-bottom: 12px; border-radius: 6px; 
+            outline: none; font-family: 'Rajdhani'; transition: 0.3s;
+        }
+        input:focus { border-color: var(--cyan); }
+
+        #btnSubmit { 
+            width: 100%; padding: 15px; background: var(--cyan); color: black; 
+            border: none; font-family: 'Orbitron'; font-weight: bold; border-radius: 6px;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        /* --- LIST DATA --- */
+        .admin-item-row { 
+            display: flex; align-items: center; background: #0d0d12; padding: 12px; 
+            border-radius: 8px; margin-bottom: 10px; border: 1px solid #1a1a1a; 
+            animation: fadeIn 0.4s ease;
+        }
+        .admin-item-row img { width: 45px; height: 45px; border-radius: 4px; object-fit: cover; }
+        .item-info { flex-grow: 1; margin-left: 12px; }
+        .item-info strong { display: block; font-size: 14px; color: #eee; }
+        .item-info span { font-size: 9px; color: #555; font-family: 'Orbitron'; }
+
+        .del-btn { 
+            background: rgba(255, 68, 68, 0.1); color: var(--red); border: 1px solid var(--red); 
+            padding: 8px 12px; border-radius: 4px; cursor: pointer; font-family: 'Orbitron'; font-size: 8px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div id="login" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#020205; z-index:999; display:flex; align-items:center; justify-content:center;">
-        <div class="admin-form" style="text-align:center;">
-            <h2 style="color:#00f2ff; font-family:'Orbitron'; font-size:18px;">EAC ACCESS CONTROL</h2>
-            <input type="password" id="pass" placeholder="Enter Admin Key...">
-            <button onclick="auth()" style="background:#00f2ff;">AUTHENTICATE</button>
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2 style="font-family:'Orbitron'; color:var(--cyan); font-size:14px; margin-bottom:20px;">OWNER ACCESS ONLY</h2>
+            <input type="password" id="passInput" placeholder="Password System..." style="text-align:center;">
+            <button onclick="checkPass()" id="btnSubmit">UNLOCK SYSTEM</button>
+            <p id="errMsg" style="color:red; font-size:10px; margin-top:10px; display:none;">ACCESS DENIED!</p>
         </div>
     </div>
 
-    <div class="admin-form">
-        <h2 style="color:#00f2ff; font-family:'Orbitron'; text-align:center; font-size:16px;">COSMIC DATA UPLOADER</h2>
+    <div id="adminMain" style="display:none;">
+        <h1 class="admin-logo">EAC <span>COMMAND CENTER</span></h1>
 
-        <label>JUDUL OBJEK</label>
-        <input type="text" id="title" placeholder="Nama Objek...">
-
-        <label>KATEGORI</label>
-        <select id="category">
-            <option value="Planet">Planet</option>
-            <option value="Galaksi">Galaksi</option>
-            <option value="Bintang">Bintang</option>
-            <option value="Objek">Objek</option>
-            <option value="Misteri">Misteri</option>
-            <option value="Teori">Teori</option>
-        </select>
-
-        <label>METODE GAMBAR</label>
-        <select id="uploadMethod" onchange="toggleMethod()">
-            <option value="file">GALERI (ImgBB)</option>
-            <option value="url">LINK LANGSUNG</option>
-        </select>
-
-        <div id="fileMethod">
-            <label>PILIH DARI GALERI</label>
-            <div class="file-box" onclick="document.getElementById('fileInput').click()">
-                <span id="fileName">Klik untuk pilih gambar</span>
-                <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="updateName()">
+        <div class="admin-tabs">
+            <div class="tab-item active" onclick="switchTab('cosmic_data', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                <span>EDUKASI</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('music_data', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                <span>MUSIC</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('community_data', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span>KOMUNITAS</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('news_data', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>BERITA</span>
             </div>
         </div>
 
-        <div id="urlMethod" style="display:none;">
-            <label>URL GAMBAR</label>
-            <input type="text" id="imageUrlLink" placeholder="https://...">
+        <div class="form-card">
+            <h2 id="formTitle">INPUT DATA EDUKASI</h2>
+            <input type="text" id="title" placeholder="Judul">
+            <textarea id="desc" rows="3" placeholder="Deskripsi..."></textarea>
+            <input type="text" id="img" placeholder="URL Gambar (Cloudinary/Link)">
+            <input type="text" id="link" placeholder="URL Link/Tujuan">
+            <select id="category">
+                <option value="Planet">PLANET</option>
+                <option value="Galaksi">GALAKSI</option>
+                <option value="Bintang">BINTANG</option>
+                <option value="Objek">OBJEK</option>
+                <option value="Misteri">MISTERI</option>
+                <option value="Teori">TEORI</option>
+            </select>
+            <button onclick="uploadData()" id="btnSubmit">PUBLISH TO DATABASE</button>
         </div>
 
-        <label>PENJELASAN</label>
-        <textarea id="desc" rows="4"></textarea>
-
-        <label>LINK ARTIKEL</label>
-        <input type="text" id="fullLink" placeholder="Wikipedia/NASA Link...">
-
-        <button onclick="processUpload()" id="btnUp">PUBLISH TO CLOUD</button>
-        <div id="status"></div>
+        <div class="data-list">
+            <h3 id="listTitle" style="text-align:center; font-size:10px; color:#555; margin-bottom:15px; font-family:'Orbitron';">LIST DATA</h3>
+            <div id="adminTableContainer"></div>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // PASSWORD OWNER
+        const ADMIN_PASSWORD = "ADMIN EAC 2026"; 
 
         const firebaseConfig = {
             apiKey: "AIzaSyB3XFfAwJbh0WHd7U_2tEazVgEg2bzbKTQ",
@@ -86,58 +151,79 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        let currentTab = 'cosmic_data';
 
-        // Global functions for buttons
-        window.auth = () => {
-            if(document.getElementById('pass').value === "PANEL ADMIN EAC 2026") document.getElementById('login').style.display='none';
-            else alert("Key Salah!");
-        };
-
-        window.toggleMethod = () => {
-            const m = document.getElementById('uploadMethod').value;
-            document.getElementById('fileMethod').style.display = m === 'file' ? 'block' : 'none';
-            document.getElementById('urlMethod').style.display = m === 'url' ? 'block' : 'none';
-        };
-
-        window.updateName = () => {
-            const f = document.getElementById('fileInput').files[0];
-            if(f) document.getElementById('fileName').innerText = f.name;
-        };
-
-        window.processUpload = async () => {
-            const method = document.getElementById('uploadMethod').value;
-            const btn = document.getElementById('btnUp');
-            btn.disabled = true; btn.innerText = "PROCESSING...";
-
-            if(method === 'file') {
-                const file = document.getElementById('fileInput').files[0];
-                const formData = new FormData();
-                formData.append("image", file);
-                try {
-                    const res = await fetch("https://api.imgbb.com/1/upload?key=1771bef0a804415dcb82b2b9d9dc5034", { method: "POST", body: formData });
-                    const json = await res.json();
-                    saveToFirebase(json.data.url);
-                } catch(e) { alert("Upload Gagal!"); btn.disabled = false; }
+        window.checkPass = () => {
+            const input = document.getElementById('passInput').value;
+            if(input === ADMIN_PASSWORD) {
+                document.getElementById('loginOverlay').style.display = "none";
+                document.getElementById('adminMain').style.display = "block";
+                loadData();
             } else {
-                saveToFirebase(document.getElementById('imageUrlLink').value);
+                document.getElementById('errMsg').style.display = "block";
+                setTimeout(() => document.getElementById('errMsg').style.display = "none", 2000);
             }
         };
 
-        function saveToFirebase(url) {
-            const dataRef = ref(db, 'cosmic_data');
-            const data = {
-                title: document.getElementById('title').value,
-                category: document.getElementById('category').value,
-                img: url,
-                desc: document.getElementById('desc').value,
-                link: document.getElementById('fullLink').value || "#",
-                time: Date.now()
-            };
-            push(dataRef, data).then(() => {
-                document.getElementById('status').innerText = "ONLINE!";
-                setTimeout(() => window.location.href="index.html", 1000);
+        window.switchTab = (tab, el) => {
+            currentTab = tab;
+            document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+
+            document.getElementById('desc').style.display = tab === 'music_data' ? 'none' : 'block';
+            document.getElementById('category').style.display = tab === 'cosmic_data' ? 'block' : 'none';
+            document.getElementById('formTitle').innerText = "INPUT " + tab.split('_')[0].toUpperCase();
+            loadData();
+        };
+
+        window.uploadData = () => {
+            const title = document.getElementById('title').value;
+            const desc = document.getElementById('desc').value;
+            const img = document.getElementById('img').value;
+            const link = document.getElementById('link').value;
+            const category = document.getElementById('category').value;
+
+            if(!title || !img || !link) return alert("Data wajib diisi!");
+
+            const dbRef = ref(db, currentTab);
+            const newDataRef = push(dbRef);
+            const payload = { title, img, link, timestamp: Date.now() };
+
+            if(currentTab !== 'music_data') payload.desc = desc;
+            if(currentTab === 'cosmic_data') payload.category = category;
+
+            set(newDataRef, payload).then(() => {
+                alert("Berhasil!");
+                document.querySelectorAll('input, textarea').forEach(i => i.value = '');
+            });
+        };
+
+        function loadData() {
+            const container = document.getElementById('adminTableContainer');
+            onValue(ref(db, currentTab), (snap) => {
+                container.innerHTML = '';
+                if(!snap.exists()) return container.innerHTML = "<p style='text-align:center; color:#333;'>Kosong.</p>";
+
+                snap.forEach((child) => {
+                    const item = child.val();
+                    const row = document.createElement('div');
+                    row.className = 'admin-item-row';
+                    row.innerHTML = `
+                        <img src="${item.img}" onerror="this.src='https://via.placeholder.com/50'">
+                        <div class="item-info">
+                            <strong>${item.title}</strong>
+                            <span>KEY: ${child.key.substring(0,6)}</span>
+                        </div>
+                        <button class="del-btn" onclick="deleteItem('${child.key}')">HAPUS</button>
+                    `;
+                    container.appendChild(row);
+                });
             });
         }
+
+        window.deleteItem = (key) => {
+            if(confirm("Hapus data ini?")) remove(ref(db, `${currentTab}/${key}`));
+        };
     </script>
 </body>
 </html>
