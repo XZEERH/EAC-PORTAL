@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+    --bg-dark: #0b0b0f;
+    --card-bg: #1c1c24;
+    --accent-purple: #9b51e0;
+    --accent-cyan: #38bdf8;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a5;
+    --green-glow: #00ffaa;
+    --icon-color: #e2e8f0;
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    padding-bottom: 100px;
+    overflow-x: hidden;
+}
+
+/* --- LOADING SCREEN (SISTEM LAMA) --- */
+#loading-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-dark);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
+}
+.premium-loader {
+    width: 120px; height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px; overflow: hidden;
+    position: relative;
+}
+.premium-loader::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; height: 100%; width: 40%;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+    animation: preloader 1.2s infinite ease-in-out;
+}
+@keyframes preloader { 0% { left: -40%; } 100% { left: 100%; } }
+
+/* --- HEADER AREA --- */
+.header-section { padding: 40px 20px 20px; text-align: center; }
+
+.status-capsule {
+    display: inline-flex; align-items: center;
+    background: rgba(0, 255, 170, 0.05);
+    border: 1px solid rgba(0, 255, 170, 0.2);
+    padding: 6px 16px; border-radius: 50px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px; color: var(--green-glow);
+    letter-spacing: 1px; margin-bottom: 25px;
+}
+
+#status-dot {
+    width: 8px; height: 8px;
+    background-color: var(--green-glow);
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--green-glow);
+    animation: pulse-green 1.5s infinite ease-in-out;
+}
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.title-portal {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px; font-weight: 700;
+    letter-spacing: 4px; margin-bottom: 15px;
+    background: linear-gradient(180deg, #fff 0%, #777 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.time-display {
+    font-family: 'Orbitron', sans-serif; font-size: 12px;
+    color: #f59e0b; letter-spacing: 2px; margin-top: 15px;
+}
+
+.nasa-card {
+    margin: 20px; border-radius: 20px;
+    background: #18181f; border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+#nasa-data img { width: 100%; height: auto; display: block; }
+.nasa-info { padding: 15px; }
+.nasa-info h4 { color: #f59e0b; font-size: 10px; font-family: 'Orbitron'; margin-bottom: 5px; }
+.nasa-info p { color: var(--text-muted); font-size: 12px; }
+
+.search-bar { margin: 0 20px 25px; }
+.search-bar input {
+    width: 100%; padding: 16px 20px;
+    background: #15151a; border: 1px solid #222;
+    border-radius: 15px; color: white; font-size: 14px; outline: none;
+}
+.mini-status {
+    display: flex; justify-content: center; gap: 20px;
+    font-family: 'Orbitron', sans-serif; font-size: 10px;
+    color: var(--text-muted); margin-bottom: 30px;
+}
+
+.card-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
+
+.card {
+    background: var(--card-bg); border-radius: 25px;
+    padding: 25px; position: relative;
+    border: 1px solid rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    opacity: 0; transform: translateY(30px);
+}
+
+.card.reveal { opacity: 1; transform: translateY(0); }
+.card.exit { opacity: 0; transform: translateY(30px); }
+
+.card:active { transform: scale(0.96); }
+
+.tag-label {
+    background: rgba(245, 158, 11, 0.1); color: #f59e0b;
+    padding: 4px 12px; border-radius: 8px;
+    font-size: 9px; font-weight: bold; display: inline-block;
+    margin-bottom: 12px; font-family: 'Orbitron';
+}
+
+.card h3 { font-size: 18px; margin-bottom: 8px; }
+.card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding-right: 60px; }
+
+.card-action-icon {
+    position: absolute; right: 25px; top: 25px;
+    width: 26px; height: 26px;
+    fill: none;
+    stroke: var(--icon-color);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.8;
+}
+
+/* --- FLOATING ACTION BUTTON (SISTEM BARU - POSISI DINAIKKAN) --- */
+.fab-wrapper {
+    position: fixed;
+    bottom: 40px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 1000;
+}
+
+.fab-main {
+    width: 56px; height: 56px;
+    background: var(--accent-purple);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(155, 81, 224, 0.4);
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-main svg { width: 24px; height: 24px; fill: white; transition: transform 0.3s; }
+.fab-wrapper.active .fab-main { transform: rotate(45deg); background: #eb4d4b; }
+
+.fab-menu {
+    display: flex; flex-direction: column;
+    gap: 12px; margin-bottom: 15px;
+    pointer-events: none;
+}
+
+.fab-item {
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0; transform: scale(0.5) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-wrapper.active .fab-menu { pointer-events: auto; }
+.fab-wrapper.active .fab-item { opacity: 1; transform: scale(1) translateY(0); }
+
+.fab-item:nth-child(1) { transition-delay: 0.05s; }
+.fab-item:nth-child(2) { transition-delay: 0.1s; }
+.fab-item:nth-child(3) { transition-delay: 0.15s; }
+
+.fab-label {
+    background: #1c1c24; color: white;
+    padding: 6px 12px; border-radius: 8px;
+    font-size: 10px; font-family: 'Orbitron';
+    border: 1px solid #333; white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.fab-icon {
+    width: 42px; height: 42px;
+    background: #25252f; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid #444; color: var(--accent-cyan);
+    cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.footer {
+    text-align: center;
+    color: #636e72;
+    font-family: 'Orbitron';
+    font-size: 9px;
+    margin-top: 50px;
+    letter-spacing: 2px;
+}
