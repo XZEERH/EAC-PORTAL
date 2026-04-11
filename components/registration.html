@@ -138,7 +138,7 @@
             list.innerHTML = "";
             snapshot.forEach((child) => {
                 const val = child.val();
-                const row = `<tr><td>${val.nama}</td><td>${val.umur} Thn</td><td class="status-terdaftar">TERDAFTAR</td></tr>`;
+                const row = `<tr><td>${val.nama}</td><td>${val.umur} Thn</td><td class="status-terdaftar">VERIFIED</td></tr>`;
                 list.insertAdjacentHTML('afterbegin', row);
             });
         });
