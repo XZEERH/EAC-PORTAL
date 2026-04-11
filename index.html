@@ -9,22 +9,41 @@
 </head>
 <body>
 
+    <!-- ===================== LOADING SCREEN ===================== -->
     <div id="loading-screen">
-        <div class="premium-loader"></div>
-        <div class="load-text" id="load-status" style="font-family:'Orbitron'; font-size:10px; color:#555; margin-top:15px; letter-spacing: 2px;">SYSTEM INITIALIZING</div>
+        <div class="load-percent" id="load-percent">0%</div>
+        <div class="premium-loader">
+            <div class="loader-bar" id="loader-bar"></div>
+        </div>
+        <div class="load-text" id="load-status">SYSTEM INITIALIZING</div>
+        <div class="load-granted" id="load-granted">ACCESS GRANTED</div>
+        <div class="welcome-sequence" id="welcome-sequence">
+            <div class="welcome-text">WELCOME</div>
+            <div class="angkasa-text">ANGKASA</div>
+        </div>
     </div>
 
+    <!-- ===================== PORTAL CONTENT ===================== -->
     <div id="portal-content" style="display:none;">
+
+        <!-- MARQUEE — paling atas sebelum header -->
+        <div class="marquee-container" id="marquee-container">
+            <div class="marquee-track">
+                <span>Selamat datang di portal EAC &nbsp;•&nbsp; Nikmatin fitur yang tersedia disini &nbsp;•&nbsp; Akses kelola pendaftaran serta informasi yang akurat &nbsp;•&nbsp; EAC PUSAT INFORMASI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>Selamat datang di portal EAC &nbsp;•&nbsp; Nikmatin fitur yang tersedia disini &nbsp;•&nbsp; Akses kelola pendaftaran serta informasi yang akurat &nbsp;•&nbsp; EAC PUSAT INFORMASI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+
         <header class="header-section">
             <div class="status-capsule"><div id="status-dot"></div>SEMUA SISTEM ONLINE</div>
-            <h1 class="title-portal">PORTAL EAC</h1>
-            <p class="welcome-greet" style="color:var(--text-muted)">Selamat Datang, <span style="color:var(--accent-purple)">Angkasa</span></p>
+            <h1 class="title-portal" id="title-portal">PORTAL EAC</h1>
+            <p class="welcome-greet">Selamat Datang, <span style="color:var(--accent-purple)">Angkasa</span></p>
             <div class="time-display" id="eac-time">00:00:00 // EAC-TIME</div>
         </header>
 
         <div class="nasa-card">
             <div id="nasa-data">
-                <div style="height: 150px; display: flex; align-items: center; justify-content: center; color: #333;">Fetching Satellite Data...</div>
+                <div style="height:150px;display:flex;align-items:center;justify-content:center;color:#333;">Fetching Satellite Data...</div>
             </div>
         </div>
 
@@ -37,6 +56,7 @@
             <span>PING: <span id="ping-val">--</span> MS</span>
         </div>
 
+        <!-- CARDS -->
         <div class="card-container" id="cardContainer">
             <div class="card" onclick="goto('components/registration.html', 'Registrasi 1')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
@@ -44,35 +64,30 @@
                 <h3>REGISTRASI EAC 1</h3>
                 <p>Pendaftaran utama bagi anggota baru yang ingin bergabung.</p>
             </div>
-
             <div class="card" onclick="goto('components/registration2.html', 'Registrasi 2')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <div class="tag-label">GABUNG PROYEK KEDUA</div>
                 <h3>REGISTRASI EAC 2</h3>
                 <p>Pendaftaran kolaborasi lanjutan kedua untuk proyek bersama.</p>
             </div>
-
             <div class="card" onclick="goto('https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m', 'Saluran WhatsApp')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 <div class="tag-label">INFO</div>
                 <h3>Saluran WhatsApp</h3>
                 <p>Gabung ke saluran resmi untuk mendapatkan info terbaru kegiatan kami.</p>
             </div>
-
             <div class="card" onclick="goto('pages/information.html', 'Website Utama')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 <div class="tag-label">WEB</div>
                 <h3>Website Utama</h3>
                 <p>Akses ke pengelolaan pusat informasi astro dengan tampilan visual terbaik.</p>
             </div>
-
             <div class="card" onclick="goto('https://eac-ai.vercel.app', 'Asisten AI')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 <div class="tag-label">BOT</div>
                 <h3>Asisten AI</h3>
                 <p>Tanya jawab otomatis seputar astronomi dan sains serta lainnya.</p>
             </div>
-
             <div class="card" onclick="goto('src/calculator.html', 'Kalkulator Ilmiah')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line><line x1="16" y1="18" x2="16" y2="18"></line></svg>
                 <div class="tag-label">TOOLS</div>
@@ -81,8 +96,30 @@
             </div>
         </div>
 
+        <!-- FAB -->
         <div class="fab-wrapper" id="fabWrapper">
             <div class="fab-menu">
+                <div class="fab-item" onclick="openModal('modal-settings')">
+                    <span class="fab-label">Pengaturan</span>
+                    <div class="fab-icon">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="fab-item" onclick="openModal('modal-rules')">
+                    <span class="fab-label">Aturan EAC</span>
+                    <div class="fab-icon">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
                 <div class="fab-item" onclick="location.reload()">
                     <span class="fab-label">Reload Halaman</span>
                     <div class="fab-icon"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg></div>
@@ -103,6 +140,133 @@
 
         <div class="footer">SISTEM TERKENDALI AMAN | EAC PUSAT INFORMASI</div>
     </div>
+
+    <!-- ===================== MODAL: PENGATURAN ===================== -->
+    <div class="modal-overlay" id="modal-settings" onclick="closeModalOverlay('modal-settings', event)">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <span class="modal-title">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:6px;color:var(--accent-cyan)"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    PANEL PENGATURAN
+                </span>
+                <button class="modal-close" onclick="closeModal('modal-settings')">✕</button>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>Mode Layar Penuh</span>
+                    <span class="setting-desc">Tampilkan portal full screen</span>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" id="toggle-fullscreen" onchange="toggleFullscreen(this)"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>Musik Ambient (Space)</span>
+                    <span class="setting-desc">Putar musik latar angkasa</span>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" id="toggle-music" onchange="toggleMusic(this)"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><rect x="2" y="7" width="18" height="11" rx="2" ry="2"></rect><path d="M22 11v3"></path></svg>Status Daya</span>
+                    <span class="setting-desc">Tingkat baterai perangkat</span>
+                </div>
+                <span class="setting-value" id="battery-val">--</span>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>Mode Terang</span>
+                    <span class="setting-desc">Aktifkan tema terang</span>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" id="toggle-light" onchange="toggleLightMode(this)"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>Efek Suara (SFX)</span>
+                    <span class="setting-desc">Suara saat membuka panel</span>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" id="toggle-sfx" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><circle cx="12" cy="20" r="1" fill="currentColor"></circle></svg>Hemat Daya</span>
+                    <span class="setting-desc">Nonaktifkan animasi berat</span>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" id="toggle-power" onchange="togglePowerSave(this)"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row setting-row--column">
+                <div class="setting-info">
+                    <span class="setting-name"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="setting-svg"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>Ukuran Teks</span>
+                    <span class="setting-desc" id="font-size-label">100%</span>
+                </div>
+                <input type="range" min="80" max="130" value="100" id="font-size-range" oninput="adjustFontSize(this.value)" class="setting-slider">
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== MODAL: ATURAN EAC ===================== -->
+    <div class="modal-overlay" id="modal-rules" onclick="closeModalOverlay('modal-rules', event)">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <span class="modal-title">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:6px;color:var(--accent-cyan)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    ATURAN EAC
+                </span>
+                <button class="modal-close" onclick="closeModal('modal-rules')">✕</button>
+            </div>
+            <div class="rules-section-label">
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:5px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                ATURAN KOMUNITAS
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <div><strong>Sopan & Saling Menghormati</strong><p>Jaga tutur kata dan sikap di semua platform EAC.</p></div>
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <div><strong>No Hoax & Misinformasi</strong><p>Hanya bagikan informasi astronomi yang valid dan terverifikasi.</p></div>
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line><line x1="20" y1="8" x2="20" y2="14"></line></svg>
+                <div><strong>Saling Bantu & Berbagi</strong><p>Dukung sesama anggota dalam belajar dan berkarya bersama.</p></div>
+            </div>
+            <div class="rules-section-label" style="margin-top:16px;">
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                ATURAN PENGGUNAAN WEB
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <div><strong>Riset & Edukasi</strong><p>Portal ini hanya untuk tujuan pembelajaran dan riset astronomi.</p></div>
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <div><strong>No Spam</strong><p>Dilarang menyebarkan konten berulang atau tidak relevan.</p></div>
+            </div>
+            <div class="rule-item">
+                <svg class="rule-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <div><strong>Lapor Bug</strong><p>Temukan bug? Segera hubungi admin agar portal tetap optimal.</p></div>
+            </div>
+            <button class="btn-paham" onclick="closeModal('modal-rules')">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:6px"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                SAYA PAHAM
+            </button>
+        </div>
+    </div>
+
+    <!-- NOTIFIKASI STACK -->
+    <div class="notif-stack">
+        <div class="sys-notif" id="sys-notif">
+            <div class="sys-notif-dot"></div>
+            <span>Sistem Aktif</span>
+        </div>
+        <div class="sys-notif-2" id="sys-notif-2">
+            <div class="sys-notif-dot-2"></div>
+            <span>Halaman Stabil</span>
+        </div>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="audio-sfx" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="audio-ambient" src="https://image2url.com/r2/default/files/1775920457054-bdd61149-463b-4acc-8a8f-7e17bb5d10fa.interstellar theme" preload="auto" loop></audio>
 
     <script src="script.js"></script>
 </body>
