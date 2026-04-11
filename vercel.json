@@ -15,7 +15,7 @@
     },
     {
       "source": "/components/registration2",
-      "destination": "/registrasi-2",
+      "destination": "/registrasi2",
       "permanent": true
     },
     {
