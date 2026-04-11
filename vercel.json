@@ -4,6 +4,21 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/components/registration",
+      "destination": "/registrasi",
+      "permanent": true
+    },
+    {
+      "source": "/components/registration.html",
+      "destination": "/registrasi",
+      "permanent": true
+    },
+    {
+      "source": "/components/registration2",
+      "destination": "/registrasi-2",
+      "permanent": true
+    },
+    {
       "source": "/components",
       "destination": "/registrasi",
       "permanent": true
