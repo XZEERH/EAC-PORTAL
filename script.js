@@ -221,7 +221,7 @@ window.addEventListener('load', () => {
                                     // Pasang SFX ke semua elemen portal setelah tampil
                                     attachSfxListeners();
                                 }, 700);
-                            }, 4000);
+                            }, 2000);
 
                         }, 850);
 
