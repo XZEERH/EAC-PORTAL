@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/registrasi", "destination": "/registration.html" },
+    { "source": "/registrasi 2", "destination": "/registration2.html" },
+    { "source": "/saluran", "destination": "https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m" },
+    { "source": "/website", "destination": "/information.html" },
+    { "source": "/ai", "destination": "https://eac-ai.vercel.app/" },
+    { "source": "/hitung", "destination": "/calculator.html" }
+  ]
+}
