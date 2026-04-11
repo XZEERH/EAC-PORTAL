@@ -2,12 +2,29 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/components",
+      "destination": "/registrasi",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/registrasi", "destination": "/registration.html" },
-    { "source": "/registrasi 2", "destination": "/registration2.html" },
-    { "source": "/saluran", "destination": "https://whatsapp.com/channel/0029VbCN4sQLo4hhDCkOHX1m" },
-    { "source": "/website", "destination": "/information.html" },
-    { "source": "/ai", "destination": "https://eac-ai.vercel.app/" },
-    { "source": "/hitung", "destination": "/calculator.html" }
+    {
+      "source": "/registrasi",
+      "destination": "/components/registration.html"
+    },
+    {
+      "source": "/registrasi-2",
+      "destination": "/components/registration2.html"
+    },
+    {
+      "source": "/informasi",
+      "destination": "/pages/information.html"
+    },
+    {
+      "source": "/kalkulator",
+      "destination": "/src/calculator.html"
+    }
   ]
 }
