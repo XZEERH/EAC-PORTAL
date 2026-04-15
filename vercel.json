@@ -1,45 +1,8 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/components/registration.html",
-      "destination": "/registrasi",
-      "permanent": true
-    },
-    {
-      "source": "/components/registration.html",
-      "destination": "/registrasi",
-      "permanent": true
-    },
-    {
-      "source": "/components/registration2.html",
-      "destination": "/registrasi2",
-      "permanent": true
-    },
-    {
-      "source": "/components/registration2.html",
-      "destination": "/registrasi2",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
-      "source": "/registrasi",
-      "destination": "/components/registration.html"
-    },
-    {
-      "source": "/registrasi-2",
-      "destination": "/components/registration2.html"
-    },
-    {
-      "source": "/informasi",
-      "destination": "/pages/information.html"
-    },
-    {
-      "source": "/kalkulator",
-      "destination": "/src/calculator.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
