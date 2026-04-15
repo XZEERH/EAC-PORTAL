@@ -8,13 +8,13 @@
   </url>
 
   <url>
-    <loc>https://portal-eac.vercel.app/components/registration.html</loc>
+    <loc>https://portal-eac.vercel.app/src/components/registration.html</loc>
     <lastmod>2026-04-07</lastmod>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://portal-eac.vercel.app/components/registration2.html</loc>
+    <loc>https://portal-eac.vercel.app/src/components/registration2.html</loc>
     <lastmod>2026-04-07</lastmod>
     <priority>0.8</priority>
   </url>
