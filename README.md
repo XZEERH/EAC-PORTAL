@@ -35,14 +35,13 @@ Portal ini dirancang sebagai hub pusat bagi komunitas **Education Astronomy Crea
 
 ## 🛰️ TECHNOLOGIES USED
 
-| Component | Technology | Role |
-| :--- | :--- | :--- |
-| **Engine** | HTML5 / CSS3 / JS | Core Structure & Galactic Styling |
-| **Fonts** | Orbitron & Inter | Futuristic Typography |
-| **API** | NASA APOD | Real-time Space Data |
-| **Hosting** | Vercel | High-speed Global Deployment |
-| **Management** | MGit (Mobile) | Repository & Token Control |
+Sistem dibangun dengan pendekatan **Vanilla Web Architecture**.
 
+### Core Stack
+- HTML5
+- CSS3 (Flexbox & Grid)
+- JSON
+- XML
 
 ⚠️ EMERGENCY PROTOCOL: 404 ERROR
 ​Jika member tersesat di sektor yang salah, sistem akan otomatis menjalankan:
