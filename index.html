@@ -7,29 +7,121 @@
     <title>PORTAL EAC</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- ===================== PENAMBAHAN SEO & META DATA OLEH AI ===================== -->
-
-    <!-- Favicon: Ini untuk memunculkan gambar/logo di samping URL pada pencarian Google (seperti di screenshot Anda) -->
+    <!-- ===================== PENAMBAHAN SEO & META DATA ===================== -->
     <link rel="icon" type="image/jpeg" href="assets/favicon-eac.jpg">
     <link rel="apple-touch-icon" href="assets/favicon-eac.jpg">
-
-    <!-- Meta Description: Ini untuk teks penjelasan di bawah judul pada pencarian Google -->
     <meta name="description" content="PORTAL EAC — PORTAL PUSAT INFORMASI YANG AKURAT SERTA TANYA JAWAB DENGAN ASISTEN ASTRO AI, PENDAFTARAN RESMI EAC TELAH DIBUKA!">
     <meta name="author" content="XZEERH">
-
-    <!-- Open Graph (OG) Meta Tags: Agar saat link disebar di WhatsApp/Telegram/Sosmed, muncul gambar dan deskripsinya -->
     <meta property="og:title" content="PORTAL EAC">
     <meta property="og:description" content="PORTAL EAC — PORTAL PUSAT INFORMASI YANG AKURAT SERTA TANYA JAWAB DENGAN ASISTEN ASTRO AI, PENDAFTARAN RESMI EAC TELAH DIBUKA!">
     <meta property="og:image" content="assets/favicon-eac.jpg">
     <meta property="og:type" content="website">
-
-    <!-- Twitter Card: Opsional tapi bagus untuk pelengkap -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="PORTAL EAC">
     <meta name="twitter:description" content="PORTAL EAC — PORTAL PUSAT INFORMASI YANG AKURAT SERTA TANYA JAWAB DENGAN ASISTEN ASTRO AI, PENDAFTARAN RESMI EAC TELAH DIBUKA!">
     <meta name="twitter:image" content="assets/favicon-eac.jpg">
-
     <!-- ===================== AKHIR PENAMBAHAN ===================== -->
+
+    <!-- ===================== PERBAIKAN TAMPILAN (NASA & LAPTOP) ===================== -->
+    <style>
+        /* 1. PERBAIKAN NASA CARD (MINIMALIS & TIDAK MAKAN TEMPAT) */
+        .nasa-card {
+            width: 100%;
+            height: 180px !important; /* Mengunci tinggi card agar selalu menjadi kotak memanjang */
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: 16px;
+            overflow: hidden; /* Memotong gambar yang melebihi kotak */
+            position: relative;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        /* Memaksa gambar NASA masuk ke dalam kotak dengan rapi */
+        #nasa-data img, .nasa-card img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; /* Agar gambar tidak gepeng/tertarik */
+            object-position: center;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Teks NASA melayang di atas gambar dengan latar gradasi gelap */
+        #nasa-data {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        #nasa-data h3, #nasa-data .title, #nasa-data strong {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            padding: 30px 15px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
+            color: #fff;
+            font-size: 15px;
+            text-align: left;
+            z-index: 2; /* Berada di atas gambar */
+            box-sizing: border-box;
+        }
+
+        /* Label / Keterangan kecil di atas (jika ada) */
+        #nasa-data p {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 2. PERBAIKAN TAMPILAN LAPTOP / DESKTOP (RESPONSIVE) */
+        @media screen and (min-width: 768px) {
+            /* Membatasi lebar portal agar tidak melebar kaku di PC */
+            #portal-content {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 30px;
+            }
+
+            /* Membatasi kolom pencarian */
+            .search-bar {
+                max-width: 500px;
+                margin: 20px auto;
+            }
+
+            /* Mengubah Card Menu menjadi menyamping (Grid) */
+            .card-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                justify-content: center;
+                align-items: stretch;
+            }
+
+            /* Card NASA sedikit dilebarkan di PC */
+            .nasa-card {
+                max-width: 1000px;
+                height: 250px !important; 
+            }
+
+            /* Notifikasi dipindah ke pojok kanan bawah agar tidak menutupi tengah */
+            .notif-stack {
+                bottom: 30px;
+                right: 30px;
+                align-items: flex-end;
+            }
+        }
+    </style>
+    <!-- ===================== AKHIR PERBAIKAN TAMPILAN ===================== -->
+
 </head>
 <body>
 
@@ -50,7 +142,7 @@
     <!-- ===================== PORTAL CONTENT ===================== -->
     <div id="portal-content" style="display:none;">
 
-        <!-- MARQUEE — paling atas sebelum header -->
+        <!-- MARQUEE -->
         <div class="marquee-container" id="marquee-container">
             <div class="marquee-track">
                 <span>Selamat datang di portal EAC &nbsp;•&nbsp; Nikmatin fitur yang tersedia disini &nbsp;•&nbsp; Akses kelola pendaftaran serta informasi yang akurat &nbsp;•&nbsp; EAC PUSAT INFORMASI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -100,12 +192,15 @@
                 <h3>Saluran WhatsApp</h3>
                 <p>Gabung ke saluran resmi untuk mendapatkan info terbaru kegiatan kami.</p>
             </div>
+            
+            <!-- PORTAL MONOLITH BARU -->
             <div class="card" onclick="goto('https://xzeerh.github.io/MONOLITH-EAC/', 'Pusat Monolith')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                 <div class="tag-label">MONOLITH</div>
                 <h3>PUSAT MONOLITH</h3>
                 <p>Akses menuju pusat data dan eksplorasi Monolith EAC.</p>
             </div>
+
             <div class="card" onclick="goto('pages/information.html', 'Website Utama')">
                 <svg class="card-action-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 <div class="tag-label">WEB</div>
@@ -132,22 +227,13 @@
                 <div class="fab-item" onclick="openModal('modal-settings')">
                     <span class="fab-label">Pengaturan</span>
                     <div class="fab-icon">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </div>
                 </div>
                 <div class="fab-item" onclick="openModal('modal-rules')">
                     <span class="fab-label">Aturan EAC</span>
                     <div class="fab-icon">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
                 </div>
                 <div class="fab-item" onclick="location.reload()">
@@ -233,7 +319,7 @@
         </div>
     </div>
 
-<!-- ===================== MODAL: ATURAN EAC ===================== -->
+    <!-- ===================== MODAL: ATURAN EAC ===================== -->
     <div class="modal-overlay" id="modal-rules" onclick="closeModalOverlay('modal-rules', event)">
         <div class="modal-glass">
             <div class="modal-header">
