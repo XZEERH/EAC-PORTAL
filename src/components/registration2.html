@@ -125,12 +125,23 @@
     </div>
 
     <script>
-        // CONFIG FIREBASE
+        // CONFIG FIREBASE (Versi 2)
         const firebaseConfig = {
             databaseURL: "https://registrasi-2-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+
+        // FUNGSI UNTUK MENCEGAH XSS SAAT RENDER HTML
+        function escapeHTML(str) {
+            if (!str) return "";
+            return str.toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
 
         // Ambil Data Realtime
         database.ref('pendaftar').on('value', (snapshot) => {
@@ -138,19 +149,30 @@
             list.innerHTML = "";
             snapshot.forEach((child) => {
                 const val = child.val();
-                const row = `<tr><td>${val.nama}</td><td>${val.umur} Thn</td><td class="status-terdaftar">VERIFIED</td></tr>`;
+                
+                // Mencegah XSS: Ubah tag HTML jadi teks aman
+                const safeNama = escapeHTML(val.nama);
+                const safeUmur = escapeHTML(val.umur);
+
+                const row = `<tr><td>${safeNama}</td><td>${safeUmur} Thn</td><td class="status-terdaftar">VERIFIED</td></tr>`;
                 list.insertAdjacentHTML('afterbegin', row);
             });
         });
 
         function generateIDCard() {
-            const nama = document.getElementById('in-nama').value;
-            const umur = document.getElementById('in-umur').value;
+            const nama = document.getElementById('in-nama').value.trim();
+            const umur = document.getElementById('in-umur').value.trim();
             const status = document.getElementById('in-status').value;
-            const tiktok = document.getElementById('in-tiktok').value;
-            const alasan = document.getElementById('in-alasan').value;
+            const tiktok = document.getElementById('in-tiktok').value.trim();
+            const alasan = document.getElementById('in-alasan').value.trim();
 
-            if(!nama || !alasan) return alert("Isi data dengan lengkap!");
+            if(!nama || !alasan || !umur) return alert("Isi data dengan lengkap!");
+
+            // VALIDASI REGEX: Memblokir karakter aneh pada nama
+            const nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(nama)) {
+                return alert("Peringatan: Nama hanya boleh mengandung huruf dan spasi!");
+            }
 
             document.getElementById('form-section').style.display = 'none';
             document.getElementById('loader').style.display = 'flex';
