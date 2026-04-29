@@ -22,82 +22,91 @@
     <meta name="twitter:image" content="assets/favicon-eac.jpg">
     <!-- ===================== AKHIR PENAMBAHAN ===================== -->
 
-    <!-- ===================== PERBAIKAN TAMPILAN (NASA & LAPTOP) ===================== -->
+    <!-- ===================== PERBAIKAN TAMPILAN NASA CARD & NOTIFIKASI ===================== -->
     <style>
-        /* 1. PERBAIKAN NASA CARD (MINIMALIS & TIDAK MAKAN TEMPAT) */
+        /* 1. PERBAIKAN NASA CARD (PERSIS SEPERTI GAMBAR 2) */
         .nasa-card {
-            width: 100%;
-            height: 180px !important; /* Mengunci tinggi card agar selalu menjadi kotak memanjang */
-            background-color: rgba(20, 20, 30, 0.8);
-            border-radius: 16px;
-            overflow: hidden; /* Memotong gambar yang melebihi kotak */
-            position: relative;
+            width: calc(100% - 40px); /* Memberi jarak/margin di kiri dan kanan agar tidak melar */
+            max-width: 500px; /* Batas maksimal lebar */
             margin: 20px auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            background-color: #49495c; /* Warna kotak abu-abu di bagian bawah teks */
+            overflow: hidden;
             display: block;
+            border: none; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Memaksa gambar NASA masuk ke dalam kotak dengan rapi */
+        /* Memisahkan bagian gambar dan bagian teks atas-bawah */
+        #nasa-data {
+            display: flex;
+            flex-direction: column; /* Baris ke bawah */
+            width: 100%;
+            height: auto !important; /* Mengikuti isi teks */
+            padding: 0;
+            background-color: transparent;
+        }
+
+        /* Setel Gambar NASA posisinya di atas (Top) */
         #nasa-data img, .nasa-card img {
             width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important; /* Agar gambar tidak gepeng/tertarik */
-            object-position: center;
+            height: 180px !important;
+            object-fit: cover !important;
+            position: static !important; /* Melepas gambar agar teks turun ke bawahnya */
             display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
         }
 
-        /* Teks NASA melayang di atas gambar dengan latar gradasi gelap */
-        #nasa-data {
-            position: relative;
-            height: 100%;
-            width: 100%;
+        /* Setel Teks "NASA DAILY:" (Tulisan Oranye) */
+        #nasa-data p {
+            position: static !important;
+            margin: 0 !important;
+            padding: 15px 20px 5px 20px !important; /* Spasi dalam teks */
+            color: #ff8c00 !important; /* Warna Oranye */
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            background: transparent !important;
+            backdrop-filter: none !important;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        /* Setel Teks Judul Keterangan di Bawahnya (Abu-abu muda) */
+        #nasa-data h3, #nasa-data .title, #nasa-data strong {
+            position: static !important;
+            margin: 0 !important;
+            padding: 0 20px 20px 20px !important;
+            color: #b0b0c0 !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            background: transparent !important;
+            text-align: left;
+        }
+
+        /* 2. MEMPERBAIKI NOTIFIKASI AGAR TIDAK NUMPUK DI TENGAH */
+        .notif-stack {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            z-index: 999;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            gap: 10px;
+            pointer-events: none; /* Agar tidak memblokir tombol di baliknya */
         }
 
-        #nasa-data h3, #nasa-data .title, #nasa-data strong {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            padding: 30px 15px 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
-            color: #fff;
-            font-size: 15px;
-            text-align: left;
-            z-index: 2; /* Berada di atas gambar */
-            box-sizing: border-box;
-        }
-
-        /* Label / Keterangan kecil di atas (jika ada) */
-        #nasa-data p {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* 2. PERBAIKAN TAMPILAN LAPTOP / DESKTOP (RESPONSIVE) */
+        /* 3. PERBAIKAN TAMPILAN LAPTOP / DESKTOP (RESPONSIVE) */
         @media screen and (min-width: 768px) {
-            /* Membatasi lebar portal agar tidak melebar kaku di PC */
             #portal-content {
                 max-width: 1000px;
                 margin: 0 auto;
                 padding: 30px;
             }
 
-            /* Membatasi kolom pencarian */
             .search-bar {
                 max-width: 500px;
                 margin: 20px auto;
             }
 
-            /* Mengubah Card Menu menjadi menyamping (Grid) */
             .card-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -106,21 +115,16 @@
                 align-items: stretch;
             }
 
-            /* Card NASA sedikit dilebarkan di PC */
+            /* Di PC, NASA card di set proporsional */
             .nasa-card {
-                max-width: 1000px;
-                height: 250px !important; 
+                max-width: 600px;
             }
-
-            /* Notifikasi dipindah ke pojok kanan bawah agar tidak menutupi tengah */
-            .notif-stack {
-                bottom: 30px;
-                right: 30px;
-                align-items: flex-end;
+            #nasa-data img, .nasa-card img {
+                height: 250px !important;
             }
         }
     </style>
-    <!-- ===================== AKHIR PERBAIKAN TAMPILAN ===================== -->
+    <!-- ===================== AKHIR PERBAIKAN ===================== -->
 
 </head>
 <body>
@@ -159,7 +163,7 @@
 
         <div class="nasa-card">
             <div id="nasa-data">
-                <div style="height:150px;display:flex;align-items:center;justify-content:center;color:#333;">Fetching Satellite Data...</div>
+                <div style="height:150px;display:flex;align-items:center;justify-content:center;color:#fff;">Fetching Satellite Data...</div>
             </div>
         </div>
 
@@ -257,7 +261,7 @@
         <div class="footer">SISTEM TERKENDALI AMAN | EAC PUSAT INFORMASI</div>
     </div>
 
-    <!-- ===================== MODAL: PENGATURAN ===================== -->
+    <!-- ===================== MODAL PENGATURAN ===================== -->
     <div class="modal-overlay" id="modal-settings" onclick="closeModalOverlay('modal-settings', event)">
         <div class="modal-glass">
             <div class="modal-header">
@@ -319,7 +323,7 @@
         </div>
     </div>
 
-    <!-- ===================== MODAL: ATURAN EAC ===================== -->
+    <!-- ===================== MODAL ATURAN EAC ===================== -->
     <div class="modal-overlay" id="modal-rules" onclick="closeModalOverlay('modal-rules', event)">
         <div class="modal-glass">
             <div class="modal-header">
@@ -346,7 +350,7 @@
                 <div><strong>Saling Bantu & Berbagi</strong><p>Dukung sesama anggota dalam belajar dan berkarya bersama.</p></div>
             </div>
             <div class="rules-section-label" style="margin-top:16px;">
-                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 ATURAN PENGGUNAAN WEB
             </div>
             <div class="rule-item">
