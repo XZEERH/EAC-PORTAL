@@ -70,25 +70,9 @@
             100% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } 
         }
 
-        /* TULISAN JUDUL */
-        .main-title { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 26px; 
-            margin-bottom: 5px; 
-            position: relative; 
-            z-index: 10; 
-        }
+        .main-title { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 5px; position: relative; z-index: 10; }
         .main-title span { color: #a855f7; text-shadow: 0 0 15px #a855f7; }
-        .desc-title { 
-            color: #e67e22; 
-            font-size: 11px; 
-            letter-spacing: 2px; 
-            font-weight: bold; 
-            margin-bottom: 30px; 
-            text-transform: uppercase; 
-            position: relative; 
-            z-index: 10; 
-        }
+        .desc-title { color: #e67e22; font-size: 11px; letter-spacing: 2px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; position: relative; z-index: 10; }
 
         /* FORM & INPUT */
         .form-container { background: var(--bg-card-form); width: 100%; max-width: 380px; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(0,0,0,0.5); box-sizing: border-box; position: relative; z-index: 10; }
@@ -113,7 +97,7 @@
             box-shadow: 0 0 15px rgba(255,255,255,0.4); 
         }
 
-        /* TOMBOL SEKUNDER */
+        /* TOMBOL SEKUNDER (Preview Kartu) */
         .btn-generate { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--accent-cyan); background: rgba(0, 229, 255, 0.1); color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .btn-generate:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 15px var(--accent-cyan); }
 
@@ -159,11 +143,10 @@
 
         .card-header-box { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0, 229, 255, 0.2); padding-bottom: 12px; margin-bottom: 15px; }
 
-        /* PERBAIKAN LOGO DI DALAM KARTU AGAR TETAP BAGUS SAAT DIDOWNLOAD */
         .card-logo-mini-img { 
             height: 28px; 
-            mix-blend-mode: screen; /* Berfungsi di tampilan web */
-            border-radius: 4px; /* Agar kalau bg hitamnya kelihatan saat didownload, bentuknya tetap kotak rapi bersudut tumpul */
+            mix-blend-mode: screen; 
+            border-radius: 4px; /* Trik agar aman jika bg hitam terekam saat didownload */
             filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
         }
 
@@ -198,6 +181,7 @@
         <div class="img-glitch"></div>
     </div>
 
+    <!-- UPDATE KE REGISTRASI 2 -->
     <div class="main-title">EAC <span>REGISTRASI 2</span></div>
     <div class="desc-title">Education Astronomy Creator</div>
 
@@ -235,7 +219,7 @@
             <div class="corner br"></div>
 
             <div class="card-header-box">
-                <!-- GAMBAR LOGO DI DALAM KARTU (INI YANG HILANG SEBELUMNYA) -->
+                <!-- LOGO SPESIFIK UNTUK DI DALAM KARTU (TERBARU) -->
                 <img class="card-logo-mini-img" src="https://www.image2url.com/r2/default/images/1777728472815-34397637-77d2-452e-9626-1bdb5d206970.jpg" alt="EAC Logo">
 
                 <div class="card-header-text">
@@ -303,6 +287,7 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             DOWNLOAD KARTU PNG
         </button>
+        <!-- LINK WHATSAPP REGISTRASI 2 -->
         <button class="btn-generate" style="background: rgba(34, 197, 94, 0.1); border-color: #22c55e; color: #22c55e;" onclick="window.location.href='https://chat.whatsapp.com/H9PAUxpULbFG8xB87nc5ls'">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             GABUNG KE GRUP
@@ -320,6 +305,7 @@
     </div>
 
     <script>
+        // CONFIG FIREBASE (KHUSUS REGISTRASI 2)
         const firebaseConfig = {
             databaseURL: "https://registrasi-2-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
@@ -384,7 +370,7 @@
         }
 
         function downloadAction() {
-            // PERBAIKAN: Menambahkan useCORS & allowTaint agar gambar link luar diizinkan untuk dirender saat download
+            // PERBAIKAN: Menambahkan useCORS & allowTaint agar logo tidak hilang saat di-download
             html2canvas(document.getElementById('id-card-capture'), {
                 scale: 3, 
                 backgroundColor: '#020813',
