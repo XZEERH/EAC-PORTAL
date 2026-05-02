@@ -10,30 +10,28 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap');
-        
+
         :root {
             --bg-body: #010103; --bg-card-form: #0d0d1a; --accent-purple: #9b51e0;
             --accent-cyan: #00e5ff; --label-red: #ff0000; --input-bg: #151525;
             --btn-grad: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
         }
-        
+
         body { background-color: var(--bg-body); color: #ffffff; font-family: 'Rajdhani', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 40px 15px; }
-        
-        /* LOGO UTAMA & EFEK GLITCH (DIPERBESAR & DIPOTONG AREA BAWAHNYA) */
+
+        /* LOGO UTAMA & EFEK GLITCH */
         .glitch-wrapper { 
             position: relative; 
             width: 100%; 
-            max-width: 420px; /* Ukuran dibesarkan maksimal */
-            height: 180px; /* Tinggi dibesarkan agar logo di dalamnya ikut membesar */
+            max-width: 420px; 
+            height: 180px; 
             display: flex; justify-content: center; align-items: center; 
             margin-top: 10px;
-            margin-bottom: -40px; /* Ditarik ke bawah agar rapat dengan judul */
-            z-index: 1; /* Pastikan di bawah tulisan Registrasi */
-            
-            /* INI KUNCINYA: Memotong/Crop 45px dari bagian bawah kotak untuk membuang background hitam yang menutupi teks */
+            margin-bottom: -40px; 
+            z-index: 1; 
             clip-path: inset(0px 0px 45px 0px); 
         }
-        
+
         .img-glitch {
             width: 100%; height: 100%;
             background: url('https://www.image2url.com/r2/default/images/1777723093994-a71626ff-e318-49ba-aa5c-24cf136f7524.jpg') center/contain no-repeat;
@@ -44,9 +42,9 @@
         .img-glitch::before, .img-glitch::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: inherit; mix-blend-mode: screen;
-            opacity: 0; /* Pastikan bersih tanpa bekas saat diam */
+            opacity: 0; 
         }
-        
+
         .img-glitch::before { animation: glitch-anim-1 4s infinite linear; }
         .img-glitch::after { animation: glitch-anim-2 4s infinite linear; }
 
@@ -57,8 +55,8 @@
             6% { opacity: 1; clip-path: inset(80% 0 5% 0); transform: translate(2px, 0px); filter: invert(0.8); }
             8% { opacity: 1; clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); filter: invert(0); }
             10% { opacity: 1; clip-path: inset(30% 0 20% 0); transform: translate(2px, -1px); }
-            10.1% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } /* Hilang bersih */
-            100% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } /* Fase Jeda Diam */
+            10.1% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } 
+            100% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } 
         }
 
         @keyframes glitch-anim-2 {
@@ -68,17 +66,17 @@
             6% { opacity: 1; clip-path: inset(20% 0 50% 0); transform: translate(-2px, 0px); filter: hue-rotate(0deg); }
             8% { opacity: 1; clip-path: inset(50% 0 30% 0); transform: translate(1px, 1px); }
             10% { opacity: 1; clip-path: inset(5% 0 80% 0); transform: translate(-1px, -1px); }
-            10.1% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } /* Hilang bersih */
-            100% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } /* Fase Jeda Diam */
+            10.1% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } 
+            100% { opacity: 0; transform: translate(0); clip-path: inset(0); filter: none; } 
         }
-        
-        /* TULISAN JUDUL (Diperkuat letaknya agar di depan layar) */
+
+        /* TULISAN JUDUL */
         .main-title { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 26px; 
             margin-bottom: 5px; 
             position: relative; 
-            z-index: 10; /* Selalu di depan gambar glitch */
+            z-index: 10; 
         }
         .main-title span { color: #a855f7; text-shadow: 0 0 15px #a855f7; }
         .desc-title { 
@@ -91,13 +89,13 @@
             position: relative; 
             z-index: 10; 
         }
-        
+
         /* FORM & INPUT */
         .form-container { background: var(--bg-card-form); width: 100%; max-width: 380px; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(0,0,0,0.5); box-sizing: border-box; position: relative; z-index: 10; }
         .field { margin-bottom: 15px; }
         label { display: block; color: var(--label-red); font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
         input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid #252535; border-radius: 8px; padding: 12px; color: #ccc; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
-        
+
         /* TOMBOL UTAMA */
         .btn-submit { 
             width: 100%; padding: 16px; border-radius: 8px; 
@@ -115,7 +113,7 @@
             box-shadow: 0 0 15px rgba(255,255,255,0.4); 
         }
 
-        /* TOMBOL SEKUNDER (Preview Kartu) */
+        /* TOMBOL SEKUNDER */
         .btn-generate { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--accent-cyan); background: rgba(0, 229, 255, 0.1); color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .btn-generate:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 15px var(--accent-cyan); }
 
@@ -129,7 +127,7 @@
         .table-wrapper::-webkit-scrollbar { width: 4px; }
         .table-wrapper::-webkit-scrollbar-track { background: #151525; border-radius: 10px; }
         .table-wrapper::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
-        
+
         table { width: 100%; color: #fff; font-size: 14px; text-align: left; border-collapse: collapse; }
         th { color: #555; text-transform: uppercase; font-size: 11px; padding-bottom: 10px; position: sticky; top: 0; background: #0d0d1a; z-index: 1; }
         td { padding: 8px 0; border-bottom: 1px solid #1a1a2e; }
@@ -137,7 +135,7 @@
 
         /* --- STYLING KARTU BARU --- */
         #preview-section { display: none; margin-top: 20px; text-align: center; width: 100%; max-width: 380px; }
-        
+
         #id-card-capture { 
             position: relative;
             width: 100%; 
@@ -160,10 +158,12 @@
         .corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
 
         .card-header-box { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0, 229, 255, 0.2); padding-bottom: 12px; margin-bottom: 15px; }
-        
+
+        /* PERBAIKAN LOGO DI DALAM KARTU AGAR TETAP BAGUS SAAT DIDOWNLOAD */
         .card-logo-mini-img { 
             height: 28px; 
-            mix-blend-mode: screen; 
+            mix-blend-mode: screen; /* Berfungsi di tampilan web */
+            border-radius: 4px; /* Agar kalau bg hitamnya kelihatan saat didownload, bentuknya tetap kotak rapi bersudut tumpul */
             filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
         }
 
@@ -176,7 +176,7 @@
 
         .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
         .info-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 8px; }
-        
+
         .info-box span { display: flex; align-items: center; gap: 6px; font-size: 7px; color: var(--accent-cyan); margin-bottom: 5px; letter-spacing: 1px; }
         .info-box div { font-size: 11px; font-weight: bold; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -186,14 +186,14 @@
 
         .card-footer { display: flex; font-size: 10px; font-family: 'Orbitron'; font-weight: bold; align-items: center; z-index: 2; position: relative; }
         .watermark-bg { position: absolute; bottom: -10px; right: 0; font-size: 60px; font-family: 'Orbitron'; color: rgba(255,255,255,0.02); font-weight: bold; z-index: 0; pointer-events: none; letter-spacing: -2px; }
-        
+
         .svg-icon { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .svg-icon-tiktok { width: 11px; height: 11px; fill: currentColor; stroke: none; }
     </style>
 </head>
 <body>
 
-    <!-- LOGO GLITCH (SANGAT BESAR & DIPOTONG BAWAHNYA) -->
+    <!-- LOGO GLITCH -->
     <div class="glitch-wrapper">
         <div class="img-glitch"></div>
     </div>
@@ -235,8 +235,9 @@
             <div class="corner br"></div>
 
             <div class="card-header-box">
+                <!-- GAMBAR LOGO DI DALAM KARTU (INI YANG HILANG SEBELUMNYA) -->
                 <img class="card-logo-mini-img" src="https://www.image2url.com/r2/default/images/1777728472815-34397637-77d2-452e-9626-1bdb5d206970.jpg" alt="EAC Logo">
-                
+
                 <div class="card-header-text">
                     <p style="color: #fff;">EDUCATION ASTRONOMY CREATOR</p>
                     <p>ID ANGGOTA GENERASI 1 // <span id="out-year">2026</span></p>
@@ -294,7 +295,7 @@
                     STATUS: <strong style="color:#22c55e; text-shadow: 0 0 5px rgba(34,197,94,0.5);">TERVERIFIKASI</strong>
                 </span>
             </div>
-            
+
             <div class="watermark-bg">EAC</div>
         </div>
 
@@ -376,17 +377,23 @@
                     document.getElementById('out-alasan').innerText = alasan;
                     document.getElementById('out-date').innerText = `${yyyy}-${mm}-${dd}`;
                     document.getElementById('out-year').innerText = yyyy;
-                    
+
                     document.getElementById('random-id').innerText = String(Math.floor(Math.random() * 999)).padStart(3, '0');
                 }, 1500);
             });
         }
 
         function downloadAction() {
-            html2canvas(document.getElementById('id-card-capture'), {scale: 3, backgroundColor: '#020813'}).then(canvas => {
+            // PERBAIKAN: Menambahkan useCORS & allowTaint agar gambar link luar diizinkan untuk dirender saat download
+            html2canvas(document.getElementById('id-card-capture'), {
+                scale: 3, 
+                backgroundColor: '#020813',
+                useCORS: true, 
+                allowTaint: true
+            }).then(canvas => {
                 const a = document.createElement('a');
                 a.download = `EAC_ID_${document.getElementById('out-nama').innerText}.png`;
-                a.href = canvas.toDataURL();
+                a.href = canvas.toDataURL("image/png");
                 a.click();
             });
         }
